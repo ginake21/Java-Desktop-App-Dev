@@ -527,26 +527,35 @@ public class HospitalImpl implements Hospital {
         }
         return result;
     }
-    
-//    public Object findbyID(int id, String type){
-//        String query = null;
-//        switch(type){
-//            case "inpatient":
-//                query = "select * from inpatient";
-//                break;
-//            case "medication":
-//                query = "select * from medication";
-//                break;
-//            case "surgical":
-//                query = "select * from surgical";
-//                break;
-//            default:
-//                
-//        }
-//    }
-
+     
     
     
+    public InpatientData findByInpatientID(int inpatientID)throws SQLException{
+        InpatientData inpatientData = new InpatientData(inpatientID, "any");
+        String query = "SELECT ID, DATEOFSTAY, ROOMNUMBER, DAILYRATE, SUPPLIES, SERVICES, PATIENTID FROM INPATIENT WHERE ID = ?";
+        try(Connection connection = DriverManager.getConnection(url, user, password);
+            PreparedStatement ps = connection.prepareStatement(query);)
+        {
+            ps.setInt(1, inpatientID);
+            try(ResultSet resultSet = ps.executeQuery()){                
+                if(resultSet.next()){                    
+               
+                    inpatientData.setId(inpatientID);
+                    inpatientData.setDateOfStay(resultSet.getTimestamp("DATEOFSTAY"));
+                    inpatientData.setRoomNumber(resultSet.getString("ROOMNUMBER"));
+                    inpatientData.setDailyRate(resultSet.getDouble("DAILYRATE"));
+                    inpatientData.setSupplies(resultSet.getDouble("SUPPLIES"));
+                    inpatientData.setServices(resultSet.getDouble("SERVICES"));
+                    inpatientData.setPatientID(resultSet.getInt("PATIENTID"));                 
+                }  
+                else{
+                    inpatientData.setId(inpatientID);
+                }
+            }            
+        }
+        System.out.println("\nInpatient data for Inpatient ID #" + inpatientID + ":\n" + inpatientData.toString());
+        return inpatientData;
+    }
     
     public static void main(String[] args) throws Exception{
         HospitalImpl test = new HospitalImpl();
@@ -576,5 +585,6 @@ public class HospitalImpl implements Hospital {
 //        System.out.println(test.report(2)); 
 //        String query = "select (sum(roomfee) + sum(surgeonfee) + sum(SUPPLIES)) as cost from surgical WHERE patientid = ?";
 //        System.out.println(test.runQuery(query, 2));
+          test.findByInpatientID(2);
     }
 }

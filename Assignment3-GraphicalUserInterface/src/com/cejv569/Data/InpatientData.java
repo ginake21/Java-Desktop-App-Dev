@@ -45,6 +45,17 @@ public class InpatientData {
         this.patientID = patientID;
     }
 
+    // this is used for search by id - the primary key ( not by patientID)
+    // String any doesn't have real function, only used for overloading - different signatures
+    public InpatientData(int ID, String any){
+        super();
+        this.dateOfStay = null;
+        this.roomNumber = "";
+        this.dailyRate = 0;
+        this.supplies = 0;
+        this.services = 0;
+        this.patientID = 0;
+    }    
     
     // setters & getters
     public int getId() {

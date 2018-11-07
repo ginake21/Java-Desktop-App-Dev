@@ -32,8 +32,7 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import java.awt.Dimension;
-//import java.awt.Font;
-//import javax.swing.plaf.FontUIResource;
+
 
 
 /**
@@ -183,9 +182,7 @@ public class FXMLDocumentController implements Initializable {
             String totalCost = String.format("$%.2f", hospital.runQuery(query1, patientid) + hospital.runQuery(query2, patientid) + hospital.runQuery(query3, patientid));
             System.out.println(totalCost);
             JOptionPane popup = new JOptionPane();
-//            popup.setPreferredSize(new Dimension(300, 160));
             UIManager.put("OptionPane.minimumSize",new Dimension(600,300)); 
-//            UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Arial", Font.BOLD, 16)));
             popup.showMessageDialog(null, "The total cost of patient ID#" + patientid + " is : " + totalCost, "Total Cost", 1);
 
   
