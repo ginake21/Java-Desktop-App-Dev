@@ -528,22 +528,22 @@ public class HospitalImpl implements Hospital {
         return result;
     }
     
-    public Object findbyID(int id, String type){
-        String query = null;
-        switch(type){
-            case "inpatient":
-                query = "select * from inpatient";
-                break;
-            case "medication":
-                query = "select * from medication";
-                break;
-            case "surgical":
-                query = "select * from surgical";
-                break;
-            default:
-
-        }
-    }
+//    public Object findbyID(int id, String type){
+//        String query = null;
+//        switch(type){
+//            case "inpatient":
+//                query = "select * from inpatient";
+//                break;
+//            case "medication":
+//                query = "select * from medication";
+//                break;
+//            case "surgical":
+//                query = "select * from surgical";
+//                break;
+//            default:
+//                
+//        }
+//    }
 
     
     
