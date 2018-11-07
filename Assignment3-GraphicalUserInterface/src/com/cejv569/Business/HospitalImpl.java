@@ -514,6 +514,7 @@ public class HospitalImpl implements Hospital {
         }
     }
     
+    // methods for GUI requirements
     public double runQuery(String query, int patientID)throws SQLException{
         double result = 0;
         try(Connection connection = DriverManager.getConnection(url, user, password);
@@ -557,6 +558,10 @@ public class HospitalImpl implements Hospital {
         return inpatientData;
     }
     
+    
+    
+    
+    
     public static void main(String[] args) throws Exception{
         HospitalImpl test = new HospitalImpl();
 //        test.createPatient(new PatientData("Hello", "Ko", "JAVAobsessed", Timestamp.valueOf("2007-08-23 09:10:10.0"), Timestamp.valueOf("2008-09-23 10:10:10.0")));
@@ -585,6 +590,6 @@ public class HospitalImpl implements Hospital {
 //        System.out.println(test.report(2)); 
 //        String query = "select (sum(roomfee) + sum(surgeonfee) + sum(SUPPLIES)) as cost from surgical WHERE patientid = ?";
 //        System.out.println(test.runQuery(query, 2));
-          test.findByInpatientID(2);
+//          test.findByInpatientID(2);
     }
 }

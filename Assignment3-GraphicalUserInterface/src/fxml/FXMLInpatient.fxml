@@ -21,7 +21,7 @@
       </TextArea>
       <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="600.0" spacing="15.0" style="-fx-border-color: white;">
          <children>
-            <Label prefHeight="35.0" prefWidth="202.0" text="INPATIENT" textFill="#fbf7f7">
+            <Label prefHeight="35.0" prefWidth="211.0" text="INPATIENT" textFill="#fbf7f7">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>

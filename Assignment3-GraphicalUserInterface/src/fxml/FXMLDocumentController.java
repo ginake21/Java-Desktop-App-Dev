@@ -33,8 +33,6 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import java.awt.Dimension;
 
-
-
 /**
  *
  * @author gina0
@@ -63,13 +61,6 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void btnClicked(ActionEvent event) throws SQLException{
-//        int patientid = Integer.parseInt(patientid_tx.getText());
-//        String lastname = lastname_tx.getText();
-//        String firstname = firstname_tx.getText();
-//        String diagnosis = diagnosis_tx.getText();
-//        Timestamp admissiondate = Timestamp.valueOf(admissiondate_tx.getText());
-//        Timestamp releasedate = Timestamp.valueOf(releasedate_tx.getText());
-
                 
         if(event.getTarget() == clear_btn){
             patientid_tx.setText("");
@@ -86,8 +77,14 @@ public class FXMLDocumentController implements Initializable {
                     patientid = Integer.parseInt(patientid_tx.getText());
                 }catch(Exception e){
                     textarea_p.setText("You may enter the wrong input for the patient id. Please try again");
-                }                
-                textarea_p.setText(hospital.findByPatientID(patientid).toString());
+                }   
+                PatientData patient = hospital.findByPatientID(patientid);
+                if(patient.getPatientID() != 0){
+                    textarea_p.setText(hospital.findByPatientID(patientid).toString());
+                }else{
+                    textarea_p.setText("There is no Patient information for id# " + patientid);
+                }
+                
             }
 //            System.out.println("patient id..." + patientid);
         }
@@ -128,24 +125,46 @@ public class FXMLDocumentController implements Initializable {
         
         if(event.getTarget() == prev_btn){
 //          System.out.println("Patientid: " + patientid);
-            patientid = patientid -1;
-            if(patientid >= 1){
-                textarea_p.setText(hospital.findByPatientID(patientid).toString()); 
-            }else{
-                patientid = 1;
+            if(patientid>1){
+                patientid = patientid -1;
+            }else if(patientid == 1){
+                patientid = hospital.findAll().size();
+            }
+
+//            if(patientid >= 1){
+//                textarea_p.setText(hospital.findByPatientID(patientid).toString()); 
+//            }else{
+//                patientid = 1;
+//                textarea_p.setText(hospital.findByPatientID(patientid).toString());
+//            } 
+            PatientData patient = hospital.findByPatientID(patientid);
+            if(patient.getPatientID() != 0){
                 textarea_p.setText(hospital.findByPatientID(patientid).toString());
-            } 
+            }else{
+                textarea_p.setText("There is no Patient information for id# " + patientid);
+            }
         }
         
         if(event.getTarget() == next_btn){
-            patientid = patientid + 1;
-            int patientNumber = hospital.findAll().size();
-            if(patientid <= patientNumber){
-                textarea_p.setText(hospital.findByPatientID(patientid).toString()); 
-            } else{
-                patientid = patientNumber;
-                textarea_p.setText(hospital.findByPatientID(patientid).toString()); 
+            if(patientid < hospital.findAll().size() ){
+                patientid = patientid + 1;
+            }else{
+                patientid = 1;
             }
+            
+            PatientData patient = hospital.findByPatientID(patientid);
+            if(patient.getPatientID() != 0){
+                textarea_p.setText(hospital.findByPatientID(patientid).toString());
+            }else{
+                textarea_p.setText("There is no Patient information for id# " + patientid);
+            }
+//            int patientNumber = hospital.findAll().size();
+//            if(patientid <= patientNumber){
+//                textarea_p.setText(hospital.findByPatientID(patientid).toString()); 
+//            } else{
+//                patientid = patientNumber;
+//                textarea_p.setText(hospital.findByPatientID(patientid).toString()); 
+//            }
         }
         
         if(event.getTarget() == delete_btn){
