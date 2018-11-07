@@ -49,12 +49,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="delete_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Delete" GridPane.rowIndex="2">
+            <Button fx:id="delete_btn_i" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Delete" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
             </Button>
-            <Button fx:id="save_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Save" GridPane.rowIndex="1">
+            <Button fx:id="save_btn_i" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Save" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -64,9 +64,9 @@
                   <Insets />
                </GridPane.margin>
             </Button>
-            <Button fx:id="next_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Next" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="clear_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Clear" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="prev_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Previous" GridPane.columnIndex="1" />
+            <Button fx:id="next_btn_i" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Next" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="clear_btn_i" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Clear" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button fx:id="prev_btn_i" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Previous" GridPane.columnIndex="1" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

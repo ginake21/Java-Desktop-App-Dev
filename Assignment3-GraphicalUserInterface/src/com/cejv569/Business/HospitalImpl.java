@@ -282,8 +282,7 @@ public class HospitalImpl implements Hospital {
 //    checked
     public ArrayList<PatientData> findAll() throws SQLException{
         ArrayList<PatientData> patientArray = new ArrayList<>();
-        String query = "SELECT PATIENTID, LASTNAME, FIRSTNAME, DIAGNOSIS, ADMISSIONDATE, RELEASEDATE FROM PATIENT";
-        
+        String query = "SELECT PATIENTID, LASTNAME, FIRSTNAME, DIAGNOSIS, ADMISSIONDATE, RELEASEDATE FROM PATIENT"; 
         try(Connection connection = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = connection.prepareStatement(query);
                 ResultSet resultSet = ps.executeQuery())
@@ -298,8 +297,7 @@ public class HospitalImpl implements Hospital {
                 patientData.setReleaseDate(resultSet.getTimestamp("RELEASEDATE"));
 
                 patientArray.add(patientData);
-            }
-            
+            }      
         }
         for(PatientData p : patientArray){
             System.out.println(p.toString());
@@ -559,7 +557,31 @@ public class HospitalImpl implements Hospital {
     }
     
     
-    
+    public ArrayList<InpatientData> findAllInpatient() throws SQLException{
+        ArrayList<InpatientData> inpatientArray = new ArrayList<>();
+        String query = "SELECT ID, DATEOFSTAY, ROOMNUMBER, DAILYRATE, SUPPLIES, SERVICES, PATIENTID FROM INPATIENT"; 
+        try(Connection connection = DriverManager.getConnection(url, user, password);
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet resultSet = ps.executeQuery())
+        {
+            while(resultSet.next()){
+                InpatientData inpatientData = new InpatientData();                    
+                inpatientData.setId(resultSet.getInt("ID"));
+                inpatientData.setDateOfStay(resultSet.getTimestamp("DATEOFSTAY"));
+                inpatientData.setRoomNumber(resultSet.getString("ROOMNUMBER"));
+                inpatientData.setDailyRate(resultSet.getDouble("DAILYRATE"));
+                inpatientData.setSupplies(resultSet.getDouble("SUPPLIES"));
+                inpatientData.setServices(resultSet.getDouble("SERVICES"));
+                inpatientData.setPatientID(resultSet.getInt("PATIENTID"));   
+
+                inpatientArray.add(inpatientData);
+            }      
+        }
+        for(InpatientData i : inpatientArray){
+            System.out.println(i.toString());
+        }
+        return inpatientArray;
+    }    
     
     
     public static void main(String[] args) throws Exception{
@@ -590,6 +612,12 @@ public class HospitalImpl implements Hospital {
 //        System.out.println(test.report(2)); 
 //        String query = "select (sum(roomfee) + sum(surgeonfee) + sum(SUPPLIES)) as cost from surgical WHERE patientid = ?";
 //        System.out.println(test.runQuery(query, 2));
-//          test.findByInpatientID(2);
+
+//        test.findByInpatientID(2);
+//        int size = test.findAll().size();
+//        PatientData patient = test.findAll().get(size - 1);
+//        System.out.println("Patient id is " + patient.getPatientID());
+
+        System.out.println(test.findAllInpatient());
     }
 }

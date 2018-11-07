@@ -103,6 +103,12 @@ public class FXMLDocumentController implements Initializable {
 
                 PatientData patient = new PatientData(lastname, firstname, diagnosis, admissiondate, releasedate);
                 hospital.createPatient(patient);
+                
+                int size = hospital.findAll().size();
+                PatientData patient1 = hospital.findAll().get(size - 1);
+//          System.out.println("Patient id is " + patient.getPatientID());
+          
+                patient.setPatientID(patient1.getPatientID());
                 System.out.println("new patient created");
                 textarea_p.setText("New patient created: \n " + patient.toString());
             }else{
@@ -124,19 +130,12 @@ public class FXMLDocumentController implements Initializable {
         }
         
         if(event.getTarget() == prev_btn){
-//          System.out.println("Patientid: " + patientid);
             if(patientid>1){
                 patientid = patientid -1;
             }else if(patientid == 1){
-                patientid = hospital.findAll().size();
+                int size = hospital.findAll().size();
+                patientid = hospital.findAll().get(size-1).getPatientID();
             }
-
-//            if(patientid >= 1){
-//                textarea_p.setText(hospital.findByPatientID(patientid).toString()); 
-//            }else{
-//                patientid = 1;
-//                textarea_p.setText(hospital.findByPatientID(patientid).toString());
-//            } 
             PatientData patient = hospital.findByPatientID(patientid);
             if(patient.getPatientID() != 0){
                 textarea_p.setText(hospital.findByPatientID(patientid).toString());
@@ -146,7 +145,8 @@ public class FXMLDocumentController implements Initializable {
         }
         
         if(event.getTarget() == next_btn){
-            if(patientid < hospital.findAll().size() ){
+            int size = hospital.findAll().size();
+            if(patientid < hospital.findAll().get(size-1).getPatientID()){
                 patientid = patientid + 1;
             }else{
                 patientid = 1;
@@ -158,13 +158,6 @@ public class FXMLDocumentController implements Initializable {
             }else{
                 textarea_p.setText("There is no Patient information for id# " + patientid);
             }
-//            int patientNumber = hospital.findAll().size();
-//            if(patientid <= patientNumber){
-//                textarea_p.setText(hospital.findByPatientID(patientid).toString()); 
-//            } else{
-//                patientid = patientNumber;
-//                textarea_p.setText(hospital.findByPatientID(patientid).toString()); 
-//            }
         }
         
         if(event.getTarget() == delete_btn){

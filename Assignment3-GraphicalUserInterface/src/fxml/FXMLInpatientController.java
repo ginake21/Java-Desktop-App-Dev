@@ -20,6 +20,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import com.cejv569.Data.InpatientData;
+import com.cejv569.Data.PatientData;
 import java.util.ArrayList;
 
 /**
@@ -54,11 +55,11 @@ public class FXMLInpatientController implements Initializable {
     private TextField inpatientid_tx, dateofstay_tx, roomnumber_tx, dailyrate_tx, supplies_tx, services_tx, patientid_tx;
     
     @FXML
-    private Button find_btn_i, save_btn, delete_btn, prev_btn, next_btn, clear_btn, back_btn;
+    private Button find_btn_i, save_btn_i, delete_btn_i, prev_btn_i, next_btn_i, clear_btn_i, back_btn_i;
     
     @FXML
     private void btnClicked(ActionEvent event) throws SQLException, Exception{
-        if(event.getTarget() == back_btn){
+        if(event.getTarget() == back_btn_i){
             AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
             inpatientRoot.getChildren().setAll(pane);
         }
@@ -77,10 +78,41 @@ public class FXMLInpatientController implements Initializable {
                 }else{
                     textarea_i.setText("There is no Inpatient information for id# " + inpatientSearched.getId());
                 }
-         
             }
-
         }
+        
+        if(event.getTarget() == prev_btn_i){
+            if(inpatientid>1){
+                inpatientid = inpatientid -1;
+            }else if(inpatientid == 1){
+                int size = hospital.findAll("inpatient");
+                inpatientid = hospital.findAllInpatient().get(size-1).getId();
+            }
+            InpatientData inpatient = hospital.findByInpatientID(inpatientid);
+            if(inpatient.getPatientID() != 0){
+                textarea_i.setText(inpatient.toString());
+            }else{
+                textarea_i.setText("There is no Inpatient information for id# " + inpatientid);
+            }
+        }
+        
+        if(event.getTarget() == next_btn_i){
+            int size = hospital.findAll("inpatient");
+            int lastid = hospital.findAllInpatient().get(size-1).getId();
+            
+            if(inpatientid == lastid){
+                inpatientid = hospital.findAllInpatient().get(0).getId();
+            }else if(inpatientid>=1){
+                inpatientid = inpatientid +1;
+            }
+            InpatientData inpatient = hospital.findByInpatientID(inpatientid);
+            if(inpatient.getPatientID() != 0){
+                textarea_i.setText(inpatient.toString());
+            }else{
+                textarea_i.setText("There is no Inpatient information for id# " + inpatientid);
+            }
+        }
+                
     }
     
     

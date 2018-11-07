@@ -57,6 +57,9 @@ public class InpatientData {
         this.patientID = 0;
     }    
     
+    public InpatientData(){
+        // this constructor is used for findAllInpatient() 
+    }
     // setters & getters
     public int getId() {
         return id;
