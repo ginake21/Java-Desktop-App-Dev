@@ -43,6 +43,8 @@ public class MedicationData {
     public MedicationData(int mID, String any){
 //        this.id = mID;
     }
+    
+    public MedicationData(){}
         
     //getters & setters
     public int getId() {

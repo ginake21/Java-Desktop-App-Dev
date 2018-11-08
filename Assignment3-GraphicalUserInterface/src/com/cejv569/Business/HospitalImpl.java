@@ -611,7 +611,27 @@ public class HospitalImpl implements Hospital {
         return inpatientArray;
     }    
     
-    
+    public ArrayList<MedicationData> findAllMedication() throws SQLException{
+        ArrayList<MedicationData> medicationData = new ArrayList<>();
+        String query = "SELECT ID, DATEOFMED, MED, UNITCOST, UNITS, PATIENTID FROM MEDICATION";
+        try(Connection connection = DriverManager.getConnection(url, user, password);
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet resultset =  ps.executeQuery()){
+            while(resultset.next()){
+                MedicationData medication = new MedicationData();
+                medication.setId(resultset.getInt("ID"));
+                medication.setDateOfMed(resultset.getTimestamp("DATEOFMED"));
+                medication.setMed(resultset.getString("MED"));
+                medication.setUnitCost(resultset.getDouble("UNITCOST"));
+                medication.setUnits(resultset.getDouble("UNITS"));
+                medication.setPatientID(resultset.getInt("PATIENTID"));
+                
+                medicationData.add(medication);
+            }
+        }
+        return medicationData;
+    }
+
     public static void main(String[] args) throws Exception{
         HospitalImpl test = new HospitalImpl();
 //        test.createPatient(new PatientData("Hello", "Ko", "JAVAobsessed", Timestamp.valueOf("2007-08-23 09:10:10.0"), Timestamp.valueOf("2008-09-23 10:10:10.0")));
@@ -647,6 +667,10 @@ public class HospitalImpl implements Hospital {
 //        System.out.println("Patient id is " + patient.getPatientID());
 
 //        System.out.println(test.findAllInpatient());
-        test. findByMedicationID(7);
+//        test. findByMedicationID(7);
+//        ArrayList<MedicationData> a  = test.findAllMedication();
+//        for(MedicationData m : a){
+//            System.out.println(m);
+//        }
     }
 }
