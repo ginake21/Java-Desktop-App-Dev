@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import com.cejv569.Data.InpatientData;
 import com.cejv569.Data.PatientData;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 /**
@@ -33,16 +34,17 @@ public class FXMLInpatientController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    FXMLDocumentController mainController = new FXMLDocumentController();
+//    FXMLDocumentController mainController = new FXMLDocumentController();
     HospitalImpl hospital = new HospitalImpl();
     
     int inpatientid = 0;
     Timestamp dateofstay = null;
-    int roomnumber = 0;
+    String roomnumber = "";
     double dailyrate = 0;
     double supplies = 0;
     double services = 0;
-    int patientid = mainController.patientid;  
+    int patientid = 0;
+//    int patientid = mainController.patientid;  
 
     
     @FXML
@@ -112,7 +114,58 @@ public class FXMLInpatientController implements Initializable {
                 textarea_i.setText("There is no Inpatient information for id# " + inpatientid);
             }
         }
+        
+        if(event.getTarget() == save_btn_i){
+            if(inpatientid_tx.getText().equals("")){
+                try{
+//                        inpatientid = Integer.parseInt(inpatientid_tx.getText());
+                    dateofstay = Timestamp.valueOf(dateofstay_tx.getText());
+                    roomnumber = roomnumber_tx.getText();
+                    dailyrate = Double.parseDouble(dailyrate_tx.getText());
+                    supplies = Double.parseDouble(supplies_tx.getText());
+                    services  = Double.parseDouble(services_tx.getText());
+                    patientid = Integer.parseInt(patientid_tx.getText());                       
+                }catch(Exception e){
+                    textarea_i.setText("You may not enter all the required field correctly");
+                }
+//    public InpatientData(Timestamp dateOfStay, String roomNumber, double dailyRate, double supplies, double services, int patientID)
+                try{
+                    hospital.createInpatient(new InpatientData(dateofstay, roomnumber, dailyrate, supplies, services, patientid));
+                    int size = hospital.findAllInpatient().size();
+                    System.out.println("new Inpatient created");
+                    textarea_i.setText(hospital.findAllInpatient().get(size-1).toString());
+
+                }catch(SQLIntegrityConstraintViolationException e){
+                    textarea_i.setText("The patient id# " + patientid + " doesn't exist");
+                }                         
+            }else{
+                try{
+                inpatientid = Integer.parseInt(inpatientid_tx.getText());
+                dateofstay = Timestamp.valueOf(dateofstay_tx.getText());
+                roomnumber = roomnumber_tx.getText();
+                dailyrate = Double.parseDouble(dailyrate_tx.getText());
+                supplies = Double.parseDouble(supplies_tx.getText());
+                services  = Double.parseDouble(services_tx.getText());
+                patientid = Integer.parseInt(patientid_tx.getText());    
+                }catch(Exception e){
+                    textarea_i.setText("You may enter the wrong input");
+                }
+                InpatientData inpatient = new InpatientData(dateofstay, roomnumber, dailyrate, supplies, services, patientid);
+                int result = 0;
                 
+                try{
+                    result = hospital.Update(inpatient, inpatientid);
+                    if(result != 1){
+                        textarea_i.setText("Update failed - inpatient id might not be valid");
+                    } else{
+                        inpatient.setId(inpatientid);
+                        textarea_i.setText("Inpatient information updated. \n" + inpatient.toString());
+                    }
+                }catch(SQLIntegrityConstraintViolationException e){
+                    textarea_i.setText("Patient id# " + inpatient.getPatientID() + " does not exist");
+                }
+            }
+        }                
     }
     
     

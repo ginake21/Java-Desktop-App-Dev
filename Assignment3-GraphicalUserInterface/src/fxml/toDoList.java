@@ -10,7 +10,11 @@ package fxml;
  * @author gina0
  */
 
-//modify the font-size of pop-up window
+/**
+1.modify the font-size of pop-up window
+2. for previous/next button, if there is no info, the textarea won't show
+
+*/
 
 
 public class toDoList {

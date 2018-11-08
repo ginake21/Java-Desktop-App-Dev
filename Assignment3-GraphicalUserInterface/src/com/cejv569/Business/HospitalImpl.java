@@ -54,14 +54,17 @@ public class HospitalImpl implements Hospital {
         String query = "INSERT INTO INPATIENT(DATEOFSTAY, ROOMNUMBER, DAILYRATE, SUPPLIES, SERVICES, PATIENTID) VALUES(?, ?, ?, ?, ? ,?)";
         try(Connection connection = DriverManager.getConnection(url, user, password);
                 PreparedStatement ps = connection.prepareStatement(query)){
-            ps.setTimestamp(1, inPatientData.getDateOfStay());
-            ps.setString(2, inPatientData.getRoomNumber());
-            ps.setDouble(3, inPatientData.getDailyRate());
-            ps.setDouble(4, inPatientData.getSupplies());
-            ps.setDouble(5, inPatientData.getServices());
-            ps.setInt(6, inPatientData.getPatientID());
-            
-            result = ps.executeUpdate();          
+            try{
+                ps.setTimestamp(1, inPatientData.getDateOfStay());
+                ps.setString(2, inPatientData.getRoomNumber());
+                ps.setDouble(3, inPatientData.getDailyRate());
+                ps.setDouble(4, inPatientData.getSupplies());
+                ps.setDouble(5, inPatientData.getServices());
+                ps.setInt(6, inPatientData.getPatientID());
+            }catch(Exception e){
+                System.out.println("You might enter the wrong input");
+            }
+            result = ps.executeUpdate();      
         }
         return result;
     }
@@ -587,7 +590,7 @@ public class HospitalImpl implements Hospital {
     public static void main(String[] args) throws Exception{
         HospitalImpl test = new HospitalImpl();
 //        test.createPatient(new PatientData("Hello", "Ko", "JAVAobsessed", Timestamp.valueOf("2007-08-23 09:10:10.0"), Timestamp.valueOf("2008-09-23 10:10:10.0")));
-//        test.createInpatient(new InpatientData(Timestamp.valueOf("2007-08-23 09:10:10.0"), "001", 60.0, 12.5, 4.3, 4));
+//        test.createInpatient(new InpatientData(Timestamp.valueOf("2007-08-23 09:10:10.0"), "001", 60.0, 12.5, 4.3, 3));
 //        test.createInpatient(new InpatientData(2));
 //        test.createSurgical(new SurgicalData(Timestamp.valueOf("2007-08-23 09:10:10"), "Mrs K", 22.2, 100, 76, 4));
 //        test.createSurgical(new SurgicalData(1));
@@ -600,7 +603,7 @@ public class HospitalImpl implements Hospital {
 //        test.findByLN("Kent");
 //        test.findAll();
 //        test.Update(new PatientData("Hello", "JJ", "Anxiety", Timestamp.valueOf("2007-08-23 09:10:10.0"), Timestamp.valueOf("2008-09-23 10:10:10.0")),2 );
-//        test.Update(new InpatientData(Timestamp.valueOf("2011-01-23 09:10:10.0"), "12", 60.0, 12.5, 4.3, 4), 21);
+        test.Update(new InpatientData(Timestamp.valueOf("2011-01-23 09:10:10.0"), "5", 60.0, 12.5, 4.3, 14), 38);
 //        test.Update(new MedicationData(Timestamp.valueOf("2007-11-02 12:15:20"), "moto", 20, 5, 5), 1);
 //        test.Update(new SurgicalData(Timestamp.valueOf("2000-08-23 09:10:10"), "Thomas", 92.2, 100, 76, 4), 1);
 //        test.deleteInpatient(2);
@@ -618,6 +621,6 @@ public class HospitalImpl implements Hospital {
 //        PatientData patient = test.findAll().get(size - 1);
 //        System.out.println("Patient id is " + patient.getPatientID());
 
-        System.out.println(test.findAllInpatient());
+//        System.out.println(test.findAllInpatient());
     }
 }
