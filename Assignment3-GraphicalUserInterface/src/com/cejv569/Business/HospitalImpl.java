@@ -559,6 +559,31 @@ public class HospitalImpl implements Hospital {
         return inpatientData;
     }
     
+    public MedicationData findByMedicationID(int mid) throws SQLException{
+        MedicationData medication = new MedicationData(mid, "any");
+        String query = "SELECT ID, DATEOFMED, MED, UNITCOST, UNITS, PATIENTID FROM MEDICATION WHERE ID = ?";
+        try(Connection connection = DriverManager.getConnection(url, user, password);
+                PreparedStatement ps = connection.prepareStatement(query)){
+            ps.setInt(1, mid);
+            try(ResultSet resultset = ps.executeQuery()){
+                if(resultset.next()){
+                    medication.setId(mid);
+                    medication.setDateOfMed(resultset.getTimestamp("DATEOFMED"));
+                    medication.setMed(resultset.getString("MED"));
+                    medication.setUnitCost(resultset.getDouble("UNITCOST"));
+                    medication.setUnits(resultset.getDouble("UNITCOST"));
+                    medication.setUnits(resultset.getDouble("UNITS"));
+                    medication.setPatientID(resultset.getInt("PATIENTID"));
+                }else{
+                    medication.setId(0);
+                    System.out.println("There is no medication id# " + mid);
+                    return medication;
+                }               
+            }
+        }
+        System.out.println("\nMedication data for Medication ID #" + mid + ":\n" + medication.toString());
+        return medication;
+    }
     
     public ArrayList<InpatientData> findAllInpatient() throws SQLException{
         ArrayList<InpatientData> inpatientArray = new ArrayList<>();
@@ -603,10 +628,10 @@ public class HospitalImpl implements Hospital {
 //        test.findByLN("Kent");
 //        test.findAll();
 //        test.Update(new PatientData("Hello", "JJ", "Anxiety", Timestamp.valueOf("2007-08-23 09:10:10.0"), Timestamp.valueOf("2008-09-23 10:10:10.0")),2 );
-        test.Update(new InpatientData(Timestamp.valueOf("2011-01-23 09:10:10.0"), "5", 60.0, 12.5, 4.3, 14), 38);
+//        test.Update(new InpatientData(Timestamp.valueOf("2011-01-23 09:10:10.0"), "5", 60.0, 12.5, 4.3, 14), 38);
 //        test.Update(new MedicationData(Timestamp.valueOf("2007-11-02 12:15:20"), "moto", 20, 5, 5), 1);
 //        test.Update(new SurgicalData(Timestamp.valueOf("2000-08-23 09:10:10"), "Thomas", 92.2, 100, 76, 4), 1);
-//        test.deleteInpatient(2);
+//        System.out.println(test.deleteInpatient(36));
 //        test.deleteMedication(1);
 //        test.deleteSurgical(3);
 //        test.deletePatient(2);
@@ -622,5 +647,6 @@ public class HospitalImpl implements Hospital {
 //        System.out.println("Patient id is " + patient.getPatientID());
 
 //        System.out.println(test.findAllInpatient());
+        test. findByMedicationID(7);
     }
 }

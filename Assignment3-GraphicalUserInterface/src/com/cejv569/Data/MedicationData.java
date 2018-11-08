@@ -40,6 +40,10 @@ public class MedicationData {
         this.patientID = patientID;
     }
     
+    public MedicationData(int mID, String any){
+//        this.id = mID;
+    }
+        
     //getters & setters
     public int getId() {
         return id;

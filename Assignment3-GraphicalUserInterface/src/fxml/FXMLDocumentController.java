@@ -82,7 +82,7 @@ public class FXMLDocumentController implements Initializable {
                 if(patient.getPatientID() != 0){
                     textarea_p.setText(hospital.findByPatientID(patientid).toString());
                 }else{
-                    textarea_p.setText("There is no Patient information for id# " + patientid);
+                    textarea_p.setText("There is no Patient id# " + patientid);
                 }
                 
             }
@@ -206,6 +206,10 @@ public class FXMLDocumentController implements Initializable {
     private void changeScene(ActionEvent event) throws SQLException, Exception{
         if(event.getTarget() == inpatient_btn){
             AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLInpatient.fxml"));
+            rootPane.getChildren().setAll(pane);
+        }
+        if(event.getTarget() == medication_btn){
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLMedication.fxml"));
             rootPane.getChildren().setAll(pane);
         }
 

@@ -6,7 +6,6 @@
 package fxml;
 
 import com.cejv569.Business.HospitalImpl;
-import fxml.FXMLDocumentController;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -20,9 +19,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import com.cejv569.Data.InpatientData;
-import com.cejv569.Data.PatientData;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
 
 /**
  * FXML Controller class
@@ -78,7 +75,7 @@ public class FXMLInpatientController implements Initializable {
                 if(inpatientSearched.getPatientID()!= 0){
                     textarea_i.setText(inpatientSearched.toString()); 
                 }else{
-                    textarea_i.setText("There is no Inpatient information for id# " + inpatientSearched.getId());
+                    textarea_i.setText("There is no Inpatient id# " + inpatientSearched.getId());
                 }
             }
         }
@@ -165,7 +162,31 @@ public class FXMLInpatientController implements Initializable {
                     textarea_i.setText("Patient id# " + inpatient.getPatientID() + " does not exist");
                 }
             }
-        }                
+        } 
+        
+        if(event.getTarget() == clear_btn_i){
+            inpatientid_tx.setText(""); 
+            dateofstay_tx.setText("");
+            roomnumber_tx.setText("");
+            dailyrate_tx.setText("");
+            supplies_tx.setText("");
+            services_tx.setText("");
+            patientid_tx.setText("");
+        }
+        
+        if(event.getTarget() == delete_btn_i){
+            try{
+                inpatientid = Integer.parseInt(inpatientid_tx.getText());
+            }catch(Exception e){
+                textarea_i.setText("You may enter the wrong input, please try again");
+            }     
+            int result = hospital.deleteInpatient(inpatientid);
+            if(result == 1){
+                textarea_i.setText("The data of inpatient# " +inpatientid +" is deleted");
+            }else{
+                textarea_i.setText("Update failed, the inpatient id# " + inpatientid + " doesn't exist");
+            } 
+        }
     }
     
     
