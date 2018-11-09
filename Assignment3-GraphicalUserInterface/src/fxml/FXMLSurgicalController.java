@@ -68,17 +68,15 @@ public class FXMLSurgicalController implements Initializable {
                 } 
                 
                 SurgicalData surgicalSearched = hospital.findBySurgicalID(surgicalid);
-                if(medicationSearched.getId() != 0){
-                    textarea_m.setText(medicationSearched.toString()); 
+                if(surgicalSearched.getId() != 0){
+                    textarea_s.setText(surgicalSearched.toString()); 
                 }else{
-                    textarea_m.setText("There is no Medication id# " + medicationid);
+                    textarea_s.setText("There is no Surgical id# " + surgicalid);
                 }
             }
         }
-                
-                
-   
     }
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

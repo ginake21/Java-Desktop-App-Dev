@@ -44,6 +44,7 @@ public class SurgicalData {
         this.patientID = patientID;
     }
 
+    public SurgicalData(){}
     // getters & setters
     public int getId() {
         return id;

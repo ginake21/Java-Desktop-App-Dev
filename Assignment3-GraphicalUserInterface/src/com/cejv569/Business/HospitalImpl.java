@@ -585,6 +585,33 @@ public class HospitalImpl implements Hospital {
         return medication;
     }
     
+    public SurgicalData findBySurgicalID(int surgicalid) throws SQLException{
+        String query = "SELECT ID, DATEOFSURGERY, SURGERY, ROOMFEE, SURGEONFEE, SUPPLIES, PATIENTID FROM SURGICAL WHERE ID = ?";
+        SurgicalData surgical = new SurgicalData();
+        
+        try(Connection connection = DriverManager.getConnection(url, user, password);
+                PreparedStatement ps = connection.prepareStatement(query)){
+            ps.setInt(1, surgicalid);
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    surgical.setId(rs.getInt("ID"));
+                    surgical.setDateOfSurgery(rs.getTimestamp("DATEOFSURGERY"));
+                    surgical.setSurgery(rs.getString("SURGERY"));
+                    surgical.setRoomFee(rs.getDouble("ROOMFEE"));
+                    surgical.setSurgeonFee(rs.getDouble("SURGEONFEE"));
+                    surgical.setSupplies(rs.getDouble("SUPPLIES"));
+                    surgical.setPatientID(rs.getInt("PATIENTID"));
+                }else{
+                    System.out.println("There is no surgical id# " + surgicalid);
+                    return surgical;
+                }
+            }
+        }
+
+        System.out.println("Surgical data for Surgical ID #" + surgicalid + ":\n" + surgical.toString());
+        return surgical;
+    }
+    
     public ArrayList<InpatientData> findAllInpatient() throws SQLException{
         ArrayList<InpatientData> inpatientArray = new ArrayList<>();
         String query = "SELECT ID, DATEOFSTAY, ROOMNUMBER, DAILYRATE, SUPPLIES, SERVICES, PATIENTID FROM INPATIENT"; 
@@ -672,5 +699,6 @@ public class HospitalImpl implements Hospital {
 //        for(MedicationData m : a){
 //            System.out.println(m);
 //        }
+//        test.findBySurgicalID(7);
     }
 }
