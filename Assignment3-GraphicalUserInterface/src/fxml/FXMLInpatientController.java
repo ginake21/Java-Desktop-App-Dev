@@ -20,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import com.cejv569.Data.InpatientData;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 
 /**
  * FXML Controller class
@@ -31,7 +32,10 @@ public class FXMLInpatientController implements Initializable {
     /**
      * Initializes the controller class.
      */
-//    FXMLDocumentController mainController = new FXMLDocumentController();
+
+
+    
+    
     HospitalImpl hospital = new HospitalImpl();
     
     int inpatientid = 0;
@@ -40,8 +44,8 @@ public class FXMLInpatientController implements Initializable {
     double dailyrate = 0;
     double supplies = 0;
     double services = 0;
-    int patientid = 0;
-//    int patientid = mainController.patientid;  
+    int patientid = FXMLDocumentController.patientid;
+      
 
     
     @FXML
@@ -189,10 +193,21 @@ public class FXMLInpatientController implements Initializable {
         }
     }
     
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
-
+        ArrayList<InpatientData> inpatientData = null;
+        try{
+            inpatientData = hospital.findByPatientID_I(patientid);
+            textarea_i.setText("There are " + hospital.findByPatientID_I(patientid).size() + " inpatient data\n");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }        
+        
+        for(InpatientData i : inpatientData){
+            textarea_i.appendText(i.toString() +"\n");
+        }
     }    
     
 }

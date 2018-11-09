@@ -29,6 +29,7 @@ public class Assignment3Desktop extends Application {
         Parent inpatient = FXMLLoader.load(getClass().getResource("FXMLInpatient.fxml"));
         
         scenePatient = new Scene(root); 
+        stage.setTitle("Gina's Hospital System");
         stage.setScene(scenePatient);
 //        stage.setScene(sceneInpatient);
         stage.show();

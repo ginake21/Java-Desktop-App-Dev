@@ -7,6 +7,7 @@ package fxml;
 
 import java.net.URL;
 import com.cejv569.Business.HospitalImpl;
+import com.cejv569.Data.InpatientData;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
@@ -20,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import com.cejv569.Data.MedicationData;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 
 /**
  * FXML Controller class
@@ -38,7 +40,7 @@ public class FXMLMedicationController implements Initializable {
     String med = "";
     double unitcost = 0;
     double units =0 ;
-    int patientid = 0; 
+    int patientid = FXMLDocumentController.patientid;
     
     @FXML
     AnchorPane medicationRoot;
@@ -178,11 +180,30 @@ public class FXMLMedicationController implements Initializable {
                 textarea_m.setText("Update failed, the medication id# " + medicationid + " doesn't exist");
             } 
         }
+        
+        if(event.getTarget() == clear_btn_m){
+            medicationid_tx.setText(""); 
+            dateofmed_tx.setText("");
+            med_tx.setText("");
+            unitcost_tx.setText("");
+            units_tx.setText("");
+            patientid_tx.setText("");
+        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        ArrayList<MedicationData> medicationData = null;
+        try{
+            medicationData = hospital.findByPatientID_M(patientid);
+            textarea_m.setText("There are " + hospital.findByPatientID_M(patientid).size() + " medication data\n");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }        
+        
+        for(MedicationData m : medicationData){
+            textarea_m.appendText(m.toString() +"\n");
+        }
     }    
     
 }

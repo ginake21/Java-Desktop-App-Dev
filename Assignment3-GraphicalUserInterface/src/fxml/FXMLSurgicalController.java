@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import com.cejv569.Data.SurgicalData;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 
 /**
  * FXML Controller class
@@ -39,7 +40,7 @@ public class FXMLSurgicalController implements Initializable {
     double roomfee = 0;
     double surgeonfee = 0;
     double supplies = 0;
-    int patientid = 0;
+    int patientid = FXMLDocumentController.patientid;
     
     
     @FXML
@@ -169,12 +170,47 @@ public class FXMLSurgicalController implements Initializable {
             }
         } 
         
+        
+        if(event.getTarget() == delete_btn_s){
+            try{
+                surgicalid = Integer.parseInt(surgicalid_tx.getText());
+            }catch(Exception e){
+                textarea_s.setText("You may enter the wrong input, please try again");
+            }     
+            int result = hospital.deleteSurgical(surgicalid);
+            if(result == 1){
+                textarea_s.setText("The data of surgical id# " +surgicalid +" is deleted");
+            }else{
+                textarea_s.setText("Update failed, the surgical id# " + surgicalid + " doesn't exist");
+            } 
+        }
+        
+        if(event.getTarget() == clear_btn_s){
+            surgicalid_tx.setText("");
+            dateofsurgery_tx.setText(""); 
+            surgery_tx.setText("");
+            roomfee_tx.setText("");
+            surgeonfee_tx.setText("");
+            supplies_tx.setText("");
+            patientid_tx.setText("");
+        }
+        
     }
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        ArrayList<SurgicalData> surgicalData = null;
+        try{
+            surgicalData = hospital.findByPatientID_S(patientid);
+            textarea_s.setText("There are " + hospital.findByPatientID_S(patientid).size() + " surgical data\n");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }        
+        
+        for(SurgicalData s : surgicalData){
+            textarea_s.appendText(s.toString() +"\n");
+        }
     }    
     
 }
