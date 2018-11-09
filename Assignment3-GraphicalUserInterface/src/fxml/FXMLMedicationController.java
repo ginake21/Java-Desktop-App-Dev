@@ -133,7 +133,7 @@ public class FXMLMedicationController implements Initializable {
                     textarea_m.appendText(hospital.findAllMedication().get(size-1).toString());
 
                 }catch(SQLIntegrityConstraintViolationException e){
-                    textarea_m.setText("The Medication id# " + medicationid + " doesn't exist");
+                    textarea_m.setText("The Patient id# " + patientid + " doesn't exist");
                 }                         
             }else{
                 try{
@@ -158,7 +158,7 @@ public class FXMLMedicationController implements Initializable {
                         textarea_m.setText("Medication information updated. \n" + medication.toString());
                     }
                 }catch(SQLIntegrityConstraintViolationException e){
-                    textarea_m.setText("Medication id# " + medicationid + " does not exist");
+                    textarea_m.setText("Patient id# " + patientid + " does not exist");
                 }
             }
         } 

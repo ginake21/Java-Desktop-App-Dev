@@ -34,10 +34,11 @@ public class FXMLSurgicalController implements Initializable {
      */
     HospitalImpl hospital = new HospitalImpl();
     int surgicalid = 0;
-    Timestamp dateofmed = null;
-    String med = "";
-    double unitcost = 0;
-    double units = 0;
+    Timestamp dateofsurgery = null;
+    String surgery = "";
+    double roomfee = 0;
+    double surgeonfee = 0;
+    double supplies = 0;
     int patientid = 0;
     
     
@@ -111,6 +112,63 @@ public class FXMLSurgicalController implements Initializable {
                 textarea_s.setText("There is no Surgical id# " + surgicalid);
             }
         } 
+        
+        
+                
+        if(event.getTarget() == save_btn_s){
+            if(surgicalid_tx.getText().equals("")){
+                try{                    
+//                    surgicalid = Integer.parseInt(surgicalid_tx.getText());
+                    dateofsurgery = Timestamp.valueOf(dateofsurgery_tx.getText());
+                    surgery = surgery_tx.getText();
+                    roomfee = Double.parseDouble(roomfee_tx.getText());
+                    surgeonfee = Double.parseDouble(surgeonfee_tx.getText());
+                    supplies = Double.parseDouble(supplies_tx.getText());
+                    patientid = Integer.parseInt(patientid_tx.getText());
+                  
+                }catch(Exception e){
+                    textarea_s.setText("You may not enter all the required field correctly");
+                }
+//SurgicalData(Timestamp dateOfSurgery, String surgery, double roomFee, double surgeonFee, double supplies, int patientID)
+                try{
+                    hospital.createSurgical(new SurgicalData(dateofsurgery, surgery, roomfee, surgeonfee, supplies, patientid));
+                    int size = hospital.findAllSurgical().size();
+                    textarea_s.setText("New Surgical created\n");
+                    textarea_s.appendText(hospital.findAllSurgical().get(size-1).toString());
+
+                }catch(SQLIntegrityConstraintViolationException e){
+                    textarea_s.setText("The Patient id# " + patientid + " doesn't exist");
+                }                         
+            }else{
+                try{
+                    surgicalid = Integer.parseInt(surgicalid_tx.getText());
+                    dateofsurgery = Timestamp.valueOf(dateofsurgery_tx.getText());
+                    surgery = surgery_tx.getText();
+                    roomfee = Double.parseDouble(roomfee_tx.getText());
+                    surgeonfee = Double.parseDouble(surgeonfee_tx.getText());
+                    supplies = Double.parseDouble(supplies_tx.getText());
+                    patientid = Integer.parseInt(patientid_tx.getText());
+    
+                }catch(Exception e){
+                    textarea_s.setText("You may enter the wrong input");
+                }
+                SurgicalData surgical = new SurgicalData(dateofsurgery, surgery, roomfee, surgeonfee, supplies, patientid);
+                int result = 0;
+                
+                try{
+                    result = hospital.Update(surgical, surgicalid);
+                    if(result != 1){
+                        textarea_s.setText("Update failed - surgical id might not be valid");
+                    } else{
+                        surgical.setId(surgicalid);
+                        textarea_s.setText("Surgical information updated. \n" + surgical.toString());
+                    }
+                }catch(SQLIntegrityConstraintViolationException e){
+                    textarea_s.setText("Patient id# " + patientid + " does not exist");
+                }
+            }
+        } 
+        
     }
     
     
