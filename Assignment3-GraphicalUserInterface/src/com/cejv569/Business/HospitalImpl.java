@@ -659,6 +659,29 @@ public class HospitalImpl implements Hospital {
         return medicationData;
     }
 
+    public ArrayList<SurgicalData> findAllSurgical() throws SQLException{
+        ArrayList<SurgicalData> surgicalData = new ArrayList<>();
+        String query = "SELECT ID, DATEOFSURGERY, SURGERY, ROOMFEE, SURGEONFEE, SUPPLIES, PATIENTID FROM SURGICAL";
+        try(Connection connection = DriverManager.getConnection(url, user, password);
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet rs =  ps.executeQuery()){
+            while(rs.next()){
+                SurgicalData surgical = new SurgicalData();
+                
+                surgical.setId(rs.getInt("ID"));
+                surgical.setDateOfSurgery(rs.getTimestamp("DATEOFSURGERY"));
+                surgical.setSurgery(rs.getString("SURGERY"));
+                surgical.setRoomFee(rs.getDouble("ROOMFEE"));
+                surgical.setSurgeonFee(rs.getDouble("SURGEONFEE"));
+                surgical.setSupplies(rs.getDouble("SUPPLIES"));
+                surgical.setPatientID(rs.getInt("PATIENTID"));
+                
+                surgicalData.add(surgical);
+            }
+        }
+        return surgicalData;
+    }
+        
     public static void main(String[] args) throws Exception{
         HospitalImpl test = new HospitalImpl();
 //        test.createPatient(new PatientData("Hello", "Ko", "JAVAobsessed", Timestamp.valueOf("2007-08-23 09:10:10.0"), Timestamp.valueOf("2008-09-23 10:10:10.0")));
@@ -695,10 +718,25 @@ public class HospitalImpl implements Hospital {
 
 //        System.out.println(test.findAllInpatient());
 //        test. findByMedicationID(7);
+
 //        ArrayList<MedicationData> a  = test.findAllMedication();
 //        for(MedicationData m : a){
 //            System.out.println(m);
 //        }
+
 //        test.findBySurgicalID(7);
+
+//        ArrayList<SurgicalData> sArray = test.findAllSurgical();
+//        for(SurgicalData s:test.findAllSurgical()){
+//            System.out.println("Surgical id:" + s.getId());
+//            System.out.println("Date of surgery: " + s.getDateOfSurgery());
+//            System.out.println("Surgery: " + s.getSurgery());
+//            System.out.println("Room fee: " + s.getRoomFee());    
+//            System.out.println("Surgeon Fee: " + s.getSurgeonFee());           
+//            System.out.println("Supplies: " + s.getSupplies());
+//            System.out.println("Patient ID: " + s.getPatientID());    
+//            System.out.println();   
+//        }
+
     }
 }

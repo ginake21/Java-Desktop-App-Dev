@@ -7,6 +7,7 @@ package fxml;
 
 import java.net.URL;
 import com.cejv569.Business.HospitalImpl;
+import com.cejv569.Data.MedicationData;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
@@ -75,6 +76,41 @@ public class FXMLSurgicalController implements Initializable {
                 }
             }
         }
+        
+        if(event.getTarget() == prev_btn_s){
+            if(surgicalid>1){
+                surgicalid = surgicalid -1;
+            }else if(surgicalid == 1){
+                int size = hospital.findAll("surgical");
+                surgicalid = hospital.findAllSurgical().get(size-1).getId();
+            }
+            
+            SurgicalData surgical = hospital.findBySurgicalID(surgicalid);
+            if(surgical.getPatientID() != 0){
+                textarea_s.setText(surgical.toString());
+            }else{
+                textarea_s.setText("There is no Surgical id# " + surgical);
+            }
+        }
+        
+        if(event.getTarget() == next_btn_s){
+            int size = hospital.findAll("surgical");
+            int lastid = hospital.findAllSurgical().get(size-1).getId();
+            
+            if(surgicalid == lastid){
+                // if it's already the last item, then we go to get the first item
+                surgicalid = hospital.findAllSurgical().get(0).getId();
+            }else if(surgicalid>=1){
+                surgicalid = surgicalid +1;
+            }
+            SurgicalData surgical = hospital.findBySurgicalID(surgicalid);
+            if(surgical.getPatientID() != 0){
+                // if patient id is 0, means it's the default set, there is not medication info found 
+                textarea_s.setText(surgical.toString());
+            }else{
+                textarea_s.setText("There is no Surgical id# " + surgicalid);
+            }
+        } 
     }
     
     
