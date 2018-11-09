@@ -129,11 +129,11 @@ public class FXMLInpatientController implements Initializable {
                 try{
                     hospital.createInpatient(new InpatientData(dateofstay, roomnumber, dailyrate, supplies, services, patientid));
                     int size = hospital.findAllInpatient().size();
-                    System.out.println("new Inpatient created");
-                    textarea_i.setText(hospital.findAllInpatient().get(size-1).toString());
+                    textarea_i.setText("New Inpatient created\n");
+                    textarea_i.appendText(hospital.findAllInpatient().get(size-1).toString());
 
                 }catch(SQLIntegrityConstraintViolationException e){
-                    textarea_i.setText("The patient id# " + patientid + " doesn't exist");
+                    textarea_i.setText("The Inpatient id# " + inpatientid + " doesn't exist");
                 }                         
             }else{
                 try{
@@ -159,7 +159,7 @@ public class FXMLInpatientController implements Initializable {
                         textarea_i.setText("Inpatient information updated. \n" + inpatient.toString());
                     }
                 }catch(SQLIntegrityConstraintViolationException e){
-                    textarea_i.setText("Patient id# " + inpatient.getPatientID() + " does not exist");
+                    textarea_i.setText("Inpatient id# " + inpatient.getPatientID() + " does not exist");
                 }
             }
         } 
@@ -192,16 +192,7 @@ public class FXMLInpatientController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
-//        StringBuilder sb = new StringBuilder();
-//        try{
-//            ArrayList<InpatientData> InpatientArray = hospital.findByPatientID_I(patientid);
-//            for(InpatientData i: InpatientArray){
-//                sb.append(i+"\n");                
-//            }
-//            textarea_i.setText(sb.toString());
-//        }catch(Exception e){
-//            textarea_i.setText("There is no inpatient information for patient id# " + patientid );
-//        }
+
     }    
     
 }

@@ -18,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import com.cejv569.Data.InpatientData;
 import com.cejv569.Data.MedicationData;
 import java.sql.SQLIntegrityConstraintViolationException;
 
@@ -79,22 +78,106 @@ public class FXMLMedicationController implements Initializable {
         }
         
         if(event.getTarget() == prev_btn_m){
-//            if(medicationid>1){
-//                medicationid = medicationid -1;
-//            }else if(medicationid== 1){
-//                int size = hospital.findAll("medication");
-//                medicationid = hospital.find
-//                        .findAllInpatient().get(size-1).getId();
-//            }
-//            InpatientData inpatient = hospital.findByInpatientID(inpatientid);
-//            if(inpatient.getPatientID() != 0){
-//                textarea_i.setText(inpatient.toString());
-//            }else{
-//                textarea_i.setText("There is no Inpatient information for id# " + inpatientid);
-//            }
+            if(medicationid>1){
+                medicationid = medicationid -1;
+            }else if(medicationid== 1){
+                int size = hospital.findAll("medication");
+                medicationid = hospital.findAllMedication().get(size-1).getId();
+            }
+            
+            MedicationData medication = hospital.findByMedicationID(medicationid);
+            if(medication.getPatientID() != 0){
+                textarea_m.setText(medication.toString());
+            }else{
+                textarea_m.setText("There is no Medication id# " + medicationid);
+            }
         }
                 
+        if(event.getTarget() == next_btn_m){
+            int size = hospital.findAll("medication");
+            int lastid = hospital.findAllInpatient().get(size-1).getId();
+            
+            if(medicationid == lastid){
+                // if it's already the last item, then we go to get the first item
+                medicationid = hospital.findAllInpatient().get(0).getId();
+            }else if(medicationid>=1){
+                medicationid = medicationid +1;
+            }
+            MedicationData medication = hospital.findByMedicationID(medicationid);
+            if(medication.getPatientID() != 0){
+                // if patient id is 0, means it's the default set, there is not medication info found 
+                textarea_m.setText(medication.toString());
+            }else{
+                textarea_m.setText("There is no Medication id# " + medicationid);
+            }
+        }  
+        
+        
+        if(event.getTarget() == save_btn_m){
+            if(medicationid_tx.getText().equals("")){
+                try{
+//                    medicationid = Integer.parseInt(medicationid_tx.getText());
+                    dateofmed = Timestamp.valueOf(dateofmed_tx.getText());
+                    med = med_tx.getText();
+                    unitcost = Double.parseDouble(unitcost_tx.getText());
+                    units = Double.parseDouble(units_tx.getText());
+                    patientid = Integer.parseInt(patientid_tx.getText());                     
+                }catch(Exception e){
+                    textarea_m.setText("You may not enter all the required field correctly");
+                }
+//            MedicationData(Timestamp dateOfMed, String med, double unitCost, double units, int patientID)
+                try{
+                    hospital.createMedication(new MedicationData(dateofmed, med,  unitcost, units, patientid));
+                    int size = hospital.findAllMedication().size();
+                    textarea_m.setText("New Medication created\n");
+                    textarea_m.appendText(hospital.findAllMedication().get(size-1).toString());
+
+                }catch(SQLIntegrityConstraintViolationException e){
+                    textarea_m.setText("The Medication id# " + medicationid + " doesn't exist");
+                }                         
+            }else{
+                try{
+                    medicationid = Integer.parseInt(medicationid_tx.getText());
+                    dateofmed = Timestamp.valueOf(dateofmed_tx.getText());
+                    med = med_tx.getText();
+                    unitcost = Double.parseDouble(unitcost_tx.getText());
+                    units = Double.parseDouble(units_tx.getText());
+                    patientid = Integer.parseInt(patientid_tx.getText());      
+                }catch(Exception e){
+                    textarea_m.setText("You may enter the wrong input");
+                }
+                MedicationData medication = new MedicationData(dateofmed, med,  unitcost, units, patientid);
+                int result = 0;
                 
+                try{
+                    result = hospital.Update(medication, medicationid);
+                    if(result != 1){
+                        textarea_m.setText("Update failed - medication id might not be valid");
+                    } else{
+                        medication.setId(medicationid);
+                        textarea_m.setText("Medication information updated. \n" + medication.toString());
+                    }
+                }catch(SQLIntegrityConstraintViolationException e){
+                    textarea_m.setText("Medication id# " + medicationid + " does not exist");
+                }
+            }
+        } 
+        
+        
+        
+        if(event.getTarget() == delete_btn_m){
+            try{
+                medicationid = Integer.parseInt(medicationid_tx.getText());
+            }catch(Exception e){
+                textarea_m.setText("You may enter the wrong input, please try again");
+            }     
+            int result = hospital.deleteMedication(medicationid);
+            if(result == 1){
+                textarea_m.setText("The data of medication# " +medicationid +" is deleted");
+            }else{
+                textarea_m.setText("Update failed, the medication id# " + medicationid + " doesn't exist");
+            } 
+        }
     }
     
     @Override

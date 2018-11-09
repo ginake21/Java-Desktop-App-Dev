@@ -20,7 +20,7 @@
       <HBox prefHeight="50.0" prefWidth="600.0" spacing="15.0" style="-fx-border-color: white;">
          <children>
             <Button fx:id="inpatient_btn" mnemonicParsing="false" onAction="#changeScene" prefWidth="100.0" text="Inpatient" />
-            <Button fx:id="surgical_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="100.0" text="Surgical" />
+            <Button fx:id="surgical_btn" mnemonicParsing="false" onAction="#changeScene" prefWidth="100.0" text="Surgical" />
             <Button fx:id="medication_btn" mnemonicParsing="false" onAction="#changeScene" prefWidth="100.0" text="Medication" />
             <Button fx:id="report_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="100.0" text="Report" />
             <Button fx:id="exit_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="100.0" text="Exit" />

@@ -109,7 +109,7 @@ public class FXMLDocumentController implements Initializable {
 //          System.out.println("Patient id is " + patient.getPatientID());
           
                 patient.setPatientID(patient1.getPatientID());
-                System.out.println("new patient created");
+//                System.out.println("new patient created");
                 textarea_p.setText("New patient created: \n " + patient.toString());
             }else{
                 try{
@@ -212,7 +212,10 @@ public class FXMLDocumentController implements Initializable {
             AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLMedication.fxml"));
             rootPane.getChildren().setAll(pane);
         }
-
+        if(event.getTarget() == surgical_btn){
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLSurgical.fxml"));
+            rootPane.getChildren().setAll(pane);
+        }
     }
     
     @Override
