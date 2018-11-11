@@ -8,12 +8,14 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gray; -fx-border-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.FXMLDocumentController">
+<AnchorPane fx:id="rootPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2eacb1; -fx-border-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.FXMLDocumentController">
    <children>
-      <TextArea fx:id="textarea_p" layoutY="50.0" prefHeight="200.0" prefWidth="600.0" style="-fx-border-color: white;">
+      <TextArea fx:id="textarea_p" layoutY="50.0" prefHeight="200.0" prefWidth="600.0" style="-fx-border-color: white;" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
@@ -21,11 +23,16 @@
             <Font name="Arial" size="12.0" />
          </font>
       </TextArea>
-      <HBox prefHeight="50.0" prefWidth="600.0" spacing="15.0" style="-fx-border-color: white;">
+      <HBox prefHeight="50.0" prefWidth="600.0" spacing="15.0" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Button fx:id="inpatient_btn" mnemonicParsing="false" onAction="#changeScene" prefWidth="100.0" text="Inpatient" />
             <Button fx:id="surgical_btn" mnemonicParsing="false" onAction="#changeScene" prefWidth="100.0" text="Surgical" />
             <Button fx:id="medication_btn" mnemonicParsing="false" onAction="#changeScene" prefWidth="100.0" text="Medication" />
+            <Region prefHeight="28.0" prefWidth="50.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Region>
             <Button fx:id="report_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="100.0" text="Report" />
             <Button fx:id="exit_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="100.0" text="Exit" />
          </children>
@@ -33,66 +40,75 @@
             <Insets bottom="10.0" left="18.0" right="18.0" top="10.0" />
          </padding>
       </HBox>
-      <GridPane hgap="8.0" layoutX="420.0" layoutY="249.0" prefHeight="150.0" prefWidth="180.0" vgap="8.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="70.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="70.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <HBox layoutX="2.0" layoutY="255.0" prefHeight="149.0" prefWidth="647.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="254.0">
          <children>
-            <Button fx:id="delete_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Delete" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Button>
-            <Button fx:id="save_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Save" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Button>
-            <Button fx:id="find_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Find">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Button>
-            <Button fx:id="next_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Next" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="clear_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Clear" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="prev_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Previous" GridPane.columnIndex="1" />
+            <VBox prefHeight="150.0" prefWidth="420.0">
+               <children>
+                  <HBox prefHeight="40.0" prefWidth="420.0" spacing="15.0">
+                     <children>
+                        <TextField fx:id="patientid_tx" prefWidth="70.0" promptText="Patient ID" />
+                        <TextField fx:id="lastname_tx" prefWidth="135.0" promptText="Last Name" />
+                        <TextField fx:id="firstname_tx" prefWidth="135.0" promptText="First Name" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="40.0" prefWidth="420.0" spacing="15.0">
+                     <children>
+                        <TextField fx:id="diagnosis_tx" prefWidth="300.0" promptText="Diagnosis" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="40.0" prefWidth="420.0" spacing="15.0">
+                     <children>
+                        <TextField fx:id="admissiondate_tx" prefWidth="180.0" promptText="Admission Date" />
+                        <TextField fx:id="rdate_tx" prefWidth="180.0" promptText="Release Date" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <Region prefHeight="200.0" prefWidth="1.0" HBox.hgrow="ALWAYS" />
+            <GridPane alignment="TOP_RIGHT" hgap="8.0" prefHeight="150.0" prefWidth="180.0" vgap="8.0" HBox.hgrow="ALWAYS">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="70.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="70.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="delete_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Delete" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="save_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Save" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="find_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Find">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="next_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Next" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="clear_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Clear" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="prev_btn" mnemonicParsing="false" onAction="#btnClicked" prefWidth="80.0" text="Previous" GridPane.columnIndex="1" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </padding>
+            </GridPane>
          </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </GridPane>
-      <HBox layoutY="257.0" prefHeight="40.0" prefWidth="420.0" spacing="15.0">
-         <children>
-            <TextField fx:id="patientid_tx" prefWidth="70.0" promptText="Patient ID" />
-            <TextField fx:id="lastname_tx" prefWidth="145.0" promptText="Last Name" />
-            <TextField fx:id="firstname_tx" prefWidth="145.0" promptText="First Name" />
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </HBox>
-      <HBox layoutY="302.0" prefHeight="40.0" prefWidth="420.0" spacing="15.0">
-         <children>
-            <TextField fx:id="diagnosis_tx" prefWidth="300.0" promptText="Diagnosis" />
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </HBox>
-      <HBox layoutY="347.0" prefHeight="40.0" prefWidth="420.0" spacing="15.0">
-         <children>
-            <TextField fx:id="admissiondate_tx" prefWidth="190.0" promptText="Admission Date" />
-            <TextField fx:id="rdate_tx" prefWidth="190.0" promptText="Release Date" />
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
       </HBox>
    </children>
 </AnchorPane>

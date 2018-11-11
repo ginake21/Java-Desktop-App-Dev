@@ -200,7 +200,10 @@ public class FXMLInpatientController implements Initializable {
         ArrayList<InpatientData> inpatientData = null;
         try{
             inpatientData = hospital.findByPatientID_I(patientid);
-            textarea_i.setText("There are " + hospital.findByPatientID_I(patientid).size() + " inpatient data\n");
+            if(patientid != 0){
+                textarea_i.setText("There are " + hospital.findByPatientID_I(patientid).size() + " inpatient data\n");
+            }
+
         }catch(SQLException e){
             e.printStackTrace();
         }        

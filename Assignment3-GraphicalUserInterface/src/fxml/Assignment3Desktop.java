@@ -26,12 +26,11 @@ public class Assignment3Desktop extends Application {
     public void start(Stage stage) throws Exception {
         window = stage;
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        Parent inpatient = FXMLLoader.load(getClass().getResource("FXMLInpatient.fxml"));
+//        Parent inpatient = FXMLLoader.load(getClass().getResource("FXMLInpatient.fxml"));
         
         scenePatient = new Scene(root); 
         stage.setTitle("Gina's Hospital System");
         stage.setScene(scenePatient);
-//        stage.setScene(sceneInpatient);
         stage.show();
     }
 

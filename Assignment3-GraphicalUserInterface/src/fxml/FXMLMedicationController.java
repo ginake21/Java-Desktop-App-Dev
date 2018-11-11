@@ -196,7 +196,10 @@ public class FXMLMedicationController implements Initializable {
         ArrayList<MedicationData> medicationData = null;
         try{
             medicationData = hospital.findByPatientID_M(patientid);
-            textarea_m.setText("There are " + hospital.findByPatientID_M(patientid).size() + " medication data\n");
+            if(patientid != 0){
+                textarea_m.setText("There are " + hospital.findByPatientID_M(patientid).size() + " medication data\n");
+            }
+            
         }catch(SQLException e){
             e.printStackTrace();
         }        

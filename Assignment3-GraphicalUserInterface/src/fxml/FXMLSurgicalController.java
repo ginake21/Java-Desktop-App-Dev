@@ -203,7 +203,10 @@ public class FXMLSurgicalController implements Initializable {
         ArrayList<SurgicalData> surgicalData = null;
         try{
             surgicalData = hospital.findByPatientID_S(patientid);
-            textarea_s.setText("There are " + hospital.findByPatientID_S(patientid).size() + " surgical data\n");
+            if(patientid != 0){
+                textarea_s.setText("There are " + hospital.findByPatientID_S(patientid).size() + " surgical data\n");
+            }
+            
         }catch(SQLException e){
             e.printStackTrace();
         }        
