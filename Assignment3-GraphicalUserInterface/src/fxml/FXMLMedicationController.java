@@ -20,8 +20,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import com.cejv569.Data.MedicationData;
+import static fxml.Assignment3Desktop.root;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import javafx.scene.Scene;
 
 /**
  * FXML Controller class
@@ -58,8 +60,12 @@ public class FXMLMedicationController implements Initializable {
     @FXML
     private void btnClicked(ActionEvent event) throws SQLException, Exception{
         if(event.getTarget() == back_btn_m){
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-            medicationRoot.getChildren().setAll(pane);
+            Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+            Scene sceneSurgical = new Scene(root); 
+            Assignment3Desktop.window.setScene(sceneSurgical);
+            Assignment3Desktop.window.show();              
+//            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+//            medicationRoot.getChildren().setAll(pane);
         }
         
         if(event.getTarget() == find_btn_m){

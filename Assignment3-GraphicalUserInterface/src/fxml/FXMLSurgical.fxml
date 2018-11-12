@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="surgicalRoot" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2eacb1; -fx-border-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.FXMLSurgicalController">
+<AnchorPane fx:id="surgicalRoot" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="920.0" style="-fx-background-color: #2eacb1; -fx-border-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.FXMLSurgicalController">
    <children>
       <TextArea fx:id="textarea_s" layoutY="50.0" prefHeight="200.0" prefWidth="600.0" style="-fx-border-color: white;" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <padding>
@@ -45,18 +45,10 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <HBox prefHeight="150.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="250.0">
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <VBox prefHeight="150.0" prefWidth="420.0">
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="420.0">
                <children>
-                  <HBox prefHeight="40.0" prefWidth="420.0" spacing="15.0">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                     <children>
-                        <TextField fx:id="patientid_tx" prefWidth="70.0" promptText="Patient ID" />
-                     </children>
-                  </HBox>
                   <HBox prefHeight="40.0" prefWidth="420.0" spacing="15.0">
                      <children>
                         <TextField fx:id="surgicalid_tx" prefWidth="70.0" promptText="ID" />
@@ -77,13 +69,21 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="420.0" spacing="15.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <children>
+                        <TextField fx:id="patientid_tx" prefWidth="80.0" promptText="Patient ID" />
+                     </children>
+                  </HBox>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </VBox>
             <Region prefHeight="200.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
-            <GridPane hgap="8.0" prefHeight="150.0" prefWidth="180.0" vgap="8.0">
+            <GridPane alignment="CENTER_RIGHT" hgap="8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="180.0" vgap="8.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="70.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="70.0" />

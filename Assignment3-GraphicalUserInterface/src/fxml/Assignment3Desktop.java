@@ -18,15 +18,14 @@ import javafx.stage.Stage;
  * @author gina0
  */
 public class Assignment3Desktop extends Application {
-    Stage window;
+    public static Stage window;
     Scene scenePatient; 
-    Scene sceneInpatient; 
-            
+    public static Parent root;        
     @Override
     public void start(Stage stage) throws Exception {
         window = stage;
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-//        Parent inpatient = FXMLLoader.load(getClass().getResource("FXMLInpatient.fxml"));
+        root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         scenePatient = new Scene(root); 
         stage.setTitle("Gina's Hospital System");

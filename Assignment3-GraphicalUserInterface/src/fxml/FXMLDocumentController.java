@@ -12,6 +12,7 @@ import com.cejv569.Data.InpatientData;
 import com.cejv569.Data.PatientData;
 import com.cejv569.Business.HospitalImpl;
 import fxml.Assignment3Desktop;
+import static fxml.Assignment3Desktop.root;
 import java.sql.*;
 import java.util.*;
 
@@ -40,7 +41,7 @@ import javax.swing.plaf.FontUIResource;
  * @author gina0
  */
 public class FXMLDocumentController implements Initializable {
-    Assignment3Desktop main = new  Assignment3Desktop();
+//    Assignment3Desktop main = new  Assignment3Desktop();
     HospitalImpl hospital = new HospitalImpl();
     public static int patientid = 0;
     String lastname = null;
@@ -211,16 +212,31 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void changeScene(ActionEvent event) throws SQLException, Exception{
         if(event.getTarget() == inpatient_btn){
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLInpatient.fxml"));
-            rootPane.getChildren().setAll(pane);
+
+            Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLInpatient.fxml"));
+            Scene sceneInpatient = new Scene(root); 
+//            Assignment3Desktop.window.setTitle("Gina's Hospital System");
+            Assignment3Desktop.window.setScene(sceneInpatient);
+            Assignment3Desktop.window.show();
+//            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLInpatient.fxml"));            
+//            rootPane.getChildren().setAll(pane);
         }
         if(event.getTarget() == medication_btn){
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLMedication.fxml"));
-            rootPane.getChildren().setAll(pane);
+            Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLMedication.fxml"));
+            Scene sceneMedication = new Scene(root); 
+            Assignment3Desktop.window.setScene(sceneMedication);
+            Assignment3Desktop.window.show();            
+//            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLMedication.fxml"));
+//            rootPane.getChildren().setAll(pane);
         }
         if(event.getTarget() == surgical_btn){
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLSurgical.fxml"));
-            rootPane.getChildren().setAll(pane);
+            Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLSurgical.fxml"));
+            Scene sceneSurgical = new Scene(root); 
+            Assignment3Desktop.window.setScene(sceneSurgical);
+            Assignment3Desktop.window.show();    
+            
+//            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLSurgical.fxml"));
+//            rootPane.getChildren().setAll(pane);
         }
     }
     
