@@ -139,6 +139,9 @@ public class FXMLDocumentController implements Initializable {
             }else if(patientid == 1){
                 int size = hospital.findAll().size();
                 patientid = hospital.findAll().get(size-1).getPatientID();
+            }else{
+                int size = hospital.findAll().size();
+                patientid = hospital.findAll().get(size-1).getPatientID();
             }
             PatientData patient = hospital.findByPatientID(patientid);
             if(patient.getPatientID() != 0){
@@ -215,6 +218,7 @@ public class FXMLDocumentController implements Initializable {
 
             Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLInpatient.fxml"));
             Scene sceneInpatient = new Scene(root); 
+            sceneInpatient.getStylesheets().add("/styles/hospital.css");
 //            Assignment3Desktop.window.setTitle("Gina's Hospital System");
             Assignment3Desktop.window.setScene(sceneInpatient);
             Assignment3Desktop.window.show();
@@ -224,6 +228,7 @@ public class FXMLDocumentController implements Initializable {
         if(event.getTarget() == medication_btn){
             Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLMedication.fxml"));
             Scene sceneMedication = new Scene(root); 
+            sceneMedication.getStylesheets().add("/styles/hospital.css");
             Assignment3Desktop.window.setScene(sceneMedication);
             Assignment3Desktop.window.show();            
 //            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLMedication.fxml"));
@@ -232,6 +237,7 @@ public class FXMLDocumentController implements Initializable {
         if(event.getTarget() == surgical_btn){
             Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLSurgical.fxml"));
             Scene sceneSurgical = new Scene(root); 
+            sceneSurgical.getStylesheets().add("/styles/hospital.css");
             Assignment3Desktop.window.setScene(sceneSurgical);
             Assignment3Desktop.window.show();    
             

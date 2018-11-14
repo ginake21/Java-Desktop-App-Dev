@@ -61,8 +61,9 @@ public class FXMLSurgicalController implements Initializable {
     private void btnClicked(ActionEvent event) throws SQLException, Exception{
         if(event.getTarget() == back_btn_s){
             Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-            Scene sceneSurgical = new Scene(root); 
-            Assignment3Desktop.window.setScene(sceneSurgical);
+            Scene scenePatient = new Scene(root); 
+            scenePatient.getStylesheets().add("/styles/hospital.css");
+            Assignment3Desktop.window.setScene(scenePatient);
             Assignment3Desktop.window.show();           
 //            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 //            surgicalRoot.getChildren().setAll(pane);
@@ -97,7 +98,10 @@ public class FXMLSurgicalController implements Initializable {
             if(surgical.getPatientID() != 0){
                 textarea_s.setText(surgical.toString());
             }else{
-                textarea_s.setText("There is no Surgical id# " + surgical);
+//                textarea_s.setText("There is no Surgical id# " + surgical);
+                int size = hospital.findAll("surgical");
+                surgicalid = hospital.findAllSurgical().get(size-1).getId();
+                textarea_s.setText((hospital.findBySurgicalID(surgicalid)).toString());
             }
         }
         
@@ -116,7 +120,9 @@ public class FXMLSurgicalController implements Initializable {
                 // if patient id is 0, means it's the default set, there is not medication info found 
                 textarea_s.setText(surgical.toString());
             }else{
-                textarea_s.setText("There is no Surgical id# " + surgicalid);
+//                textarea_s.setText("There is no Surgical id# " + surgicalid);
+                surgicalid = hospital.findAllSurgical().get(0).getId();
+                textarea_s.setText((hospital.findBySurgicalID(surgicalid)).toString());
             }
         } 
         

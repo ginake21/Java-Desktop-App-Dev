@@ -61,8 +61,9 @@ public class FXMLMedicationController implements Initializable {
     private void btnClicked(ActionEvent event) throws SQLException, Exception{
         if(event.getTarget() == back_btn_m){
             Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-            Scene sceneSurgical = new Scene(root); 
-            Assignment3Desktop.window.setScene(sceneSurgical);
+            Scene scenePatient = new Scene(root); 
+            scenePatient.getStylesheets().add("/styles/hospital.css");
+            Assignment3Desktop.window.setScene(scenePatient);
             Assignment3Desktop.window.show();              
 //            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 //            medicationRoot.getChildren().setAll(pane);
@@ -97,7 +98,10 @@ public class FXMLMedicationController implements Initializable {
             if(medication.getPatientID() != 0){
                 textarea_m.setText(medication.toString());
             }else{
-                textarea_m.setText("There is no Medication id# " + medicationid);
+//                textarea_m.setText("There is no Medication id# " + medicationid);
+                int size = hospital.findAll("medication");
+                medicationid = hospital.findAllMedication().get(size-1).getId();
+                textarea_m.setText((hospital.findByMedicationID(medicationid)).toString());
             }
         }
                 
@@ -116,7 +120,9 @@ public class FXMLMedicationController implements Initializable {
                 // if patient id is 0, means it's the default set, there is not medication info found 
                 textarea_m.setText(medication.toString());
             }else{
-                textarea_m.setText("There is no Medication id# " + medicationid);
+//                textarea_m.setText("There is no Medication id# " + medicationid);
+                medicationid = hospital.findAllInpatient().get(0).getId();
+                textarea_m.setText((hospital.findByMedicationID(medicationid)).toString());
             }
         }  
         

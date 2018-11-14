@@ -1,0 +1,15 @@
+/* 
+    Created on : Nov 9, 2018, 5:42:38 PM
+    Author     : gina0
+*/
+
+.button{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(#61A2B1, #2A5058);
+    /*-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );*/
+    -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+    /*-fx-width: 80%;*/
+    /*-fx-height: 50px;*/
+}

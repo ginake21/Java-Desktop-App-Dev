@@ -66,8 +66,9 @@ public class FXMLInpatientController implements Initializable {
     private void btnClicked(ActionEvent event) throws SQLException, Exception{
         if(event.getTarget() == back_btn_i){
             Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-            Scene sceneSurgical = new Scene(root); 
-            Assignment3Desktop.window.setScene(sceneSurgical);
+            Scene scenePatient = new Scene(root); 
+            scenePatient.getStylesheets().add("/styles/hospital.css");
+            Assignment3Desktop.window.setScene(scenePatient);
             Assignment3Desktop.window.show();  
 //            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 //            inpatientRoot.getChildren().setAll(pane);
@@ -101,7 +102,11 @@ public class FXMLInpatientController implements Initializable {
             if(inpatient.getPatientID() != 0){
                 textarea_i.setText(inpatient.toString());
             }else{
-                textarea_i.setText("There is no Inpatient information for id# " + inpatientid);
+//                textarea_i.setText("There is no Inpatient information for id# " + inpatientid);
+                // so the inpatient id won't be 0 in any case
+                int size = hospital.findAll("inpatient");
+                inpatientid = hospital.findAllInpatient().get(size-1).getId();
+                textarea_i.setText((hospital.findByInpatientID(inpatientid)).toString());
             }
         }
         
@@ -114,11 +119,13 @@ public class FXMLInpatientController implements Initializable {
             }else if(inpatientid>=1){
                 inpatientid = inpatientid +1;
             }
+            
             InpatientData inpatient = hospital.findByInpatientID(inpatientid);
             if(inpatient.getPatientID() != 0){
                 textarea_i.setText(inpatient.toString());
             }else{
-                textarea_i.setText("There is no Inpatient information for id# " + inpatientid);
+                inpatientid = hospital.findAllInpatient().get(0).getId();
+                textarea_i.setText((hospital.findByInpatientID(inpatientid)).toString());
             }
         }
         
