@@ -6,9 +6,6 @@ package fxml;
  * and open the template in the editor.
  */
 
-import com.cejv569.Data.SurgicalData;
-import com.cejv569.Data.MedicationData;
-import com.cejv569.Data.InpatientData;
 import com.cejv569.Data.PatientData;
 import com.cejv569.Business.HospitalImpl;
 import fxml.Assignment3Desktop;
@@ -28,8 +25,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import java.awt.Dimension;
@@ -63,6 +58,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextArea textarea_p;
     
+  
     @FXML
     private void btnClicked(ActionEvent event) throws SQLException{
                 
@@ -84,7 +80,16 @@ public class FXMLDocumentController implements Initializable {
                 }   
                 PatientData patient = hospital.findByPatientID(patientid);
                 if(patient.getPatientID() != 0){
-                    textarea_p.setText(hospital.findByPatientID(patientid).toString());
+//                    PatientData p = hospital.findByPatientID(patientid);
+//                    textarea_p.setText(p.toString() + "\n\n");
+                    textarea_p.setText("");
+                    patientInfo(patient);
+//                    textarea_p.appendText("Patient ID: " + patient.getPatientID() + "\n");
+//                    textarea_p.appendText("Last Name: " + patient.getLastName() + "\n");
+//                    textarea_p.appendText("First Name: " + patient.getFirstName() + "\n");
+//                    textarea_p.appendText("Diagnosis: " + patient.getDiagnosis() + "\n");
+//                    textarea_p.appendText("Admission Date: " + patient.getAdmissionDate() + "\n");
+//                    textarea_p.appendText("Release Date: " + patient.getReleaseDate() + "\n");
                 }else{
                     textarea_p.setText("There is no Patient id# " + patientid);
                 }
@@ -114,7 +119,15 @@ public class FXMLDocumentController implements Initializable {
           
                 patient.setPatientID(patient1.getPatientID());
 //                System.out.println("new patient created");
-                textarea_p.setText("New patient created: \n " + patient.toString());
+//                textarea_p.setText("New patient created: \n " + patient.toString());
+                textarea_p.setText("New patient created: \n");    
+                patientInfo(patient);
+//                textarea_p.appendText("Patient ID: " + patient.getPatientID() + "\n");
+//                textarea_p.appendText("Last Name: " + patient.getLastName() + "\n");
+//                textarea_p.appendText("First Name: " + patient.getFirstName() + "\n");
+//                textarea_p.appendText("Diagnosis: " + patient.getDiagnosis() + "\n");
+//                textarea_p.appendText("Admission Date: " + patient.getAdmissionDate() + "\n");
+//                textarea_p.appendText("Release Date: " + patient.getReleaseDate() + "\n");
             }else{
                 try{
                     patientid = Integer.parseInt(patientid_tx.getText());
@@ -128,8 +141,20 @@ public class FXMLDocumentController implements Initializable {
                 }
                 PatientData patient = new PatientData(lastname, firstname, diagnosis, admissiondate, releasedate);
                 patient.setPatientID(patientid);
-                hospital.Update(patient ,patientid );
-                textarea_p.setText("Patient data is updated\n" + patient.toString());          
+                if(hospital.findByPatientID(patientid).getPatientID()!=0){
+                    hospital.Update(patient ,patientid );
+    //                textarea_p.setText("Patient data is updated\n" + patient.toString());
+                    textarea_p.setText("Patient data is updated\n");         
+                    patientInfo(patient);
+//                    textarea_p.appendText("Patient ID: " + patient.getPatientID() + "\n");
+//                    textarea_p.appendText("Last Name: " + patient.getLastName() + "\n");
+//                    textarea_p.appendText("First Name: " + patient.getFirstName() + "\n");
+//                    textarea_p.appendText("Diagnosis: " + patient.getDiagnosis() + "\n");
+//                    textarea_p.appendText("Admission Date: " + patient.getAdmissionDate() + "\n");
+//                    textarea_p.appendText("Release Date: " + patient.getReleaseDate() + "\n");                
+                }else{
+                    textarea_p.setText("Patient ID " + patientid + " doesn't exist");
+                }
             }
         }
         
@@ -145,7 +170,16 @@ public class FXMLDocumentController implements Initializable {
             }
             PatientData patient = hospital.findByPatientID(patientid);
             if(patient.getPatientID() != 0){
-                textarea_p.setText(hospital.findByPatientID(patientid).toString());
+                PatientData p = hospital.findByPatientID(patientid);
+                textarea_p.setText("");
+                patientInfo(p);
+//                textarea_p.appendText("Patient ID: " + p.getPatientID() + "\n");
+//                textarea_p.appendText("Last Name: " + p.getLastName() + "\n");
+//                textarea_p.appendText("First Name: " + p.getFirstName() + "\n");
+//                textarea_p.appendText("Diagnosis: " + p.getDiagnosis() + "\n");
+//                textarea_p.appendText("Admission Date: " + p.getAdmissionDate() + "\n");
+//                textarea_p.appendText("Release Date: " + p.getReleaseDate() + "\n");
+//                textarea_p.setText(hospital.findByPatientID(patientid).toString());
             }else{
                 textarea_p.setText("There is no Patient information for id# " + patientid);
             }
@@ -161,7 +195,16 @@ public class FXMLDocumentController implements Initializable {
             
             PatientData patient = hospital.findByPatientID(patientid);
             if(patient.getPatientID() != 0){
-                textarea_p.setText(hospital.findByPatientID(patientid).toString());
+                PatientData p = hospital.findByPatientID(patientid);
+                textarea_p.setText("");
+                patientInfo(p);
+//                textarea_p.appendText("Patient ID: " + p.getPatientID() + "\n");
+//                textarea_p.appendText("Last Name: " + p.getLastName() + "\n");
+//                textarea_p.appendText("First Name: " + p.getFirstName() + "\n");
+//                textarea_p.appendText("Diagnosis: " + p.getDiagnosis() + "\n");
+//                textarea_p.appendText("Admission Date: " + p.getAdmissionDate() + "\n");
+//                textarea_p.appendText("Release Date: " + p.getReleaseDate() + "\n");
+//                textarea_p.setText(hospital.findByPatientID(patientid).toString());
             }else{
                 textarea_p.setText("There is no Patient information for id# " + patientid);
             }
@@ -192,7 +235,7 @@ public class FXMLDocumentController implements Initializable {
                     textarea_p.setText("You may enter the wrong input, please try again");
                 }  
             }
-
+            
             String query1 = "select sum(unitcost * units) as cost from medication where patientid = ?";
             String query2 = "select sum(dailyrate)+ sum(supplies) + sum(services) as cost from inpatient where patientid = ?";
             String query3 = "select sum(roomfee) + sum(surgeonfee) + sum(SUPPLIES) as cost from surgical WHERE patientid = ?";
@@ -209,6 +252,8 @@ public class FXMLDocumentController implements Initializable {
 
   
         }
+        
+        
 
     }
     
@@ -245,6 +290,17 @@ public class FXMLDocumentController implements Initializable {
 //            rootPane.getChildren().setAll(pane);
         }
     }
+    
+    
+    private void patientInfo(PatientData patient){
+        textarea_p.appendText("Patient ID: " + patient.getPatientID() + "\n");
+        textarea_p.appendText("Last Name: " + patient.getLastName() + "\n");
+        textarea_p.appendText("First Name: " + patient.getFirstName() + "\n");
+        textarea_p.appendText("Diagnosis: " + patient.getDiagnosis() + "\n");
+        textarea_p.appendText("Admission Date: " + patient.getAdmissionDate() + "\n");
+        textarea_p.appendText("Release Date: " + patient.getReleaseDate() + "\n");
+    }
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

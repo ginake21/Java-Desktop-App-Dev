@@ -84,9 +84,12 @@ public class FXMLInpatientController implements Initializable {
                 
                 InpatientData inpatientSearched = hospital.findByInpatientID(inpatientid);
                 if(inpatientSearched.getPatientID()!= 0){
-                    textarea_i.setText(inpatientSearched.toString()); 
+//                    textarea_i.setText(inpatientSearched.toString()); 
+                    textarea_i.setText("");
+                    inpatientInfo(inpatientSearched);
+                 
                 }else{
-                    textarea_i.setText("There is no Inpatient id# " + inpatientSearched.getId());
+                    textarea_i.setText("Inpatient id# "+ inpatientSearched.getId() + "doesn't exist");
                 }
             }
         }
@@ -94,19 +97,27 @@ public class FXMLInpatientController implements Initializable {
         if(event.getTarget() == prev_btn_i){
             if(inpatientid>1){
                 inpatientid = inpatientid -1;
-            }else if(inpatientid == 1){
+            }else if(inpatientid == 1||inpatientid == 0){
                 int size = hospital.findAll("inpatient");
                 inpatientid = hospital.findAllInpatient().get(size-1).getId();
             }
             InpatientData inpatient = hospital.findByInpatientID(inpatientid);
             if(inpatient.getPatientID() != 0){
-                textarea_i.setText(inpatient.toString());
+//  InpatientData{id=7, dateOfStay=2014-02-21 09:00:00.0, roomNumber=B2, dailyRate=150.0, supplies=120.23, services=87.05, patientID=2}
+                textarea_i.setText("");
+                inpatientInfo(inpatient);
+//                textarea_i.appendText("Inpatient ID: " + inpatient.getId()+"\n");
+//                textarea_i.appendText("Date of stay: " + inpatient.getDateOfStay() + "\n");
+//                textarea_i.appendText("Room number: " + inpatient.getRoomNumber()+"\n");
+//                textarea_i.appendText("Daily rate: $" + inpatient.getDailyRate()+ "\n");
+//                textarea_i.appendText("Supplies: $" + inpatient.getSupplies()+ "\n");
+//                textarea_i.appendText("Services: $" + inpatient.getServices() + "\n");
+//                textarea_i.appendText("Patient ID: " + inpatient.getPatientID()+"\n");
+                
+                
             }else{
 //                textarea_i.setText("There is no Inpatient information for id# " + inpatientid);
-                // so the inpatient id won't be 0 in any case
-                int size = hospital.findAll("inpatient");
-                inpatientid = hospital.findAllInpatient().get(size-1).getId();
-                textarea_i.setText((hospital.findByInpatientID(inpatientid)).toString());
+                textarea_i.setText("Inpatient id# " + inpatientid + " doesn't exist");
             }
         }
         
@@ -114,7 +125,7 @@ public class FXMLInpatientController implements Initializable {
             int size = hospital.findAll("inpatient");
             int lastid = hospital.findAllInpatient().get(size-1).getId();
             
-            if(inpatientid == lastid){
+            if(inpatientid == lastid || inpatientid == 0){
                 inpatientid = hospital.findAllInpatient().get(0).getId();
             }else if(inpatientid>=1){
                 inpatientid = inpatientid +1;
@@ -122,10 +133,18 @@ public class FXMLInpatientController implements Initializable {
             
             InpatientData inpatient = hospital.findByInpatientID(inpatientid);
             if(inpatient.getPatientID() != 0){
-                textarea_i.setText(inpatient.toString());
+//                textarea_i.setText(inpatient.toString());
+                textarea_i.setText("");
+                inpatientInfo(inpatient);
+//                textarea_i.appendText("Inpatient ID: " + inpatient.getId()+"\n");
+//                textarea_i.appendText("Date of stay: " + inpatient.getDateOfStay() + "\n");
+//                textarea_i.appendText("Room number: " + inpatient.getRoomNumber()+"\n");
+//                textarea_i.appendText("Daily rate: $" + inpatient.getDailyRate()+ "\n");
+//                textarea_i.appendText("Supplies: $" + inpatient.getSupplies()+ "\n");
+//                textarea_i.appendText("Services: $" + inpatient.getServices() + "\n");
+//                textarea_i.appendText("Patient ID: " + inpatient.getPatientID()+"\n");
             }else{
-                inpatientid = hospital.findAllInpatient().get(0).getId();
-                textarea_i.setText((hospital.findByInpatientID(inpatientid)).toString());
+               textarea_i.setText("Inpatient id# " + inpatientid + " doesn't exist");
             }
         }
         
@@ -147,7 +166,16 @@ public class FXMLInpatientController implements Initializable {
                     hospital.createInpatient(new InpatientData(dateofstay, roomnumber, dailyrate, supplies, services, patientid));
                     int size = hospital.findAllInpatient().size();
                     textarea_i.setText("New Inpatient created\n");
-                    textarea_i.appendText(hospital.findAllInpatient().get(size-1).toString());
+                    InpatientData inpatient = hospital.findAllInpatient().get(size-1);
+//                    textarea_i.appendText(hospital.findAllInpatient().get(size-1).toString());
+                    inpatientInfo(inpatient);
+//                    textarea_i.appendText("Inpatient ID: " + inpatient.getId()+"\n");
+//                    textarea_i.appendText("Date of stay: " + inpatient.getDateOfStay() + "\n");
+//                    textarea_i.appendText("Room number: " + inpatient.getRoomNumber()+"\n");
+//                    textarea_i.appendText("Daily rate: $" + inpatient.getDailyRate()+ "\n");
+//                    textarea_i.appendText("Supplies: $" + inpatient.getSupplies()+ "\n");
+//                    textarea_i.appendText("Services: $" + inpatient.getServices() + "\n");
+//                    textarea_i.appendText("Patient ID: " + inpatient.getPatientID()+"\n");
 
                 }catch(SQLIntegrityConstraintViolationException e){
                     textarea_i.setText("The Patient id# " + patientid + " doesn't exist");
@@ -173,7 +201,17 @@ public class FXMLInpatientController implements Initializable {
                         textarea_i.setText("Update failed - inpatient id might not be valid");
                     } else{
                         inpatient.setId(inpatientid);
-                        textarea_i.setText("Inpatient information updated. \n" + inpatient.toString());
+//                        textarea_i.setText("Inpatient information updated. \n" + inpatient.toString());
+                        textarea_i.setText("Inpatient information updated. \n");
+                        inpatientInfo(inpatient);
+//                        textarea_i.appendText("Inpatient ID: " + inpatient.getId()+"\n");
+//                        textarea_i.appendText("Date of stay: " + inpatient.getDateOfStay() + "\n");
+//                        textarea_i.appendText("Room number: " + inpatient.getRoomNumber()+"\n");
+//                        textarea_i.appendText("Daily rate: $" + inpatient.getDailyRate()+ "\n");
+//                        textarea_i.appendText("Supplies: $" + inpatient.getSupplies()+ "\n");
+//                        textarea_i.appendText("Services: $" + inpatient.getServices() + "\n");
+//                        textarea_i.appendText("Patient ID: " + inpatient.getPatientID()+"\n");
+                        
                     }
                 }catch(SQLIntegrityConstraintViolationException e){
                     textarea_i.setText("Patient id# " + patientid + " does not exist");
@@ -206,7 +244,15 @@ public class FXMLInpatientController implements Initializable {
         }
     }
     
-
+    public void inpatientInfo(InpatientData inpatient){
+        textarea_i.appendText("Inpatient ID: " + inpatient.getId()+"\n");
+        textarea_i.appendText("Date of stay: " + inpatient.getDateOfStay() + "\n");
+        textarea_i.appendText("Room number: " + inpatient.getRoomNumber()+"\n");
+        textarea_i.appendText("Daily rate: $" + inpatient.getDailyRate()+ "\n");
+        textarea_i.appendText("Supplies: $" + inpatient.getSupplies()+ "\n");
+        textarea_i.appendText("Services: $" + inpatient.getServices() + "\n");
+        textarea_i.appendText("Patient ID: " + inpatient.getPatientID()+"\n");
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb){
@@ -214,7 +260,7 @@ public class FXMLInpatientController implements Initializable {
         try{
             inpatientData = hospital.findByPatientID_I(patientid);
             if(patientid != 0){
-                textarea_i.setText("There are " + hospital.findByPatientID_I(patientid).size() + " inpatient data\n");
+                textarea_i.setText("There are " + hospital.findByPatientID_I(patientid).size() + " inpatient data for patient id#" + patientid +"\n");
             }
 
         }catch(SQLException e){
@@ -222,7 +268,14 @@ public class FXMLInpatientController implements Initializable {
         }        
         
         for(InpatientData i : inpatientData){
-            textarea_i.appendText(i.toString() +"\n");
+//            textarea_i.appendText(i.toString() +"\n");
+            textarea_i.appendText("\nInpatient ID: " + i.getId()+"\n");
+            textarea_i.appendText("Date of stay: " + i.getDateOfStay() + "__");
+            textarea_i.appendText("Room number: " + i.getRoomNumber()+"__");
+            textarea_i.appendText("Daily rate: $" + i.getDailyRate()+ "__");
+            textarea_i.appendText("Supplies: $" + i.getSupplies()+ "__");
+            textarea_i.appendText("Services: $" + i.getServices() + "__");
+            textarea_i.appendText("Patient ID: " + i.getPatientID()+"\n");
         }
     }    
     

@@ -118,7 +118,7 @@ public class HospitalImpl implements Hospital {
                 // if resultSet is not ampty
                 if(resultSet.next()){
                     // DATA FOR PATIENT
-                    patientData = new PatientData();
+//                    patientData = new PatientData();
                     patientData.setPatientID(patientID);
                     patientData.setLastName(resultSet.getString("LASTNAME"));
                     patientData.setFirstName(resultSet.getString("FIRSTNAME"));
