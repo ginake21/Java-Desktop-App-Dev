@@ -36,7 +36,6 @@ import javax.swing.plaf.FontUIResource;
  * @author gina0
  */
 public class FXMLDocumentController implements Initializable {
-//    Assignment3Desktop main = new  Assignment3Desktop();
     HospitalImpl hospital = new HospitalImpl();
     public static int patientid = 0;
     String lastname = null;
@@ -80,22 +79,13 @@ public class FXMLDocumentController implements Initializable {
                 }   
                 PatientData patient = hospital.findByPatientID(patientid);
                 if(patient.getPatientID() != 0){
-//                    PatientData p = hospital.findByPatientID(patientid);
-//                    textarea_p.setText(p.toString() + "\n\n");
                     textarea_p.setText("");
                     patientInfo(patient);
-//                    textarea_p.appendText("Patient ID: " + patient.getPatientID() + "\n");
-//                    textarea_p.appendText("Last Name: " + patient.getLastName() + "\n");
-//                    textarea_p.appendText("First Name: " + patient.getFirstName() + "\n");
-//                    textarea_p.appendText("Diagnosis: " + patient.getDiagnosis() + "\n");
-//                    textarea_p.appendText("Admission Date: " + patient.getAdmissionDate() + "\n");
-//                    textarea_p.appendText("Release Date: " + patient.getReleaseDate() + "\n");
                 }else{
                     textarea_p.setText("There is no Patient id# " + patientid);
                 }
                 
             }
-//            System.out.println("patient id..." + patientid);
         }
         
         if(event.getTarget() == save_btn){
@@ -115,21 +105,11 @@ public class FXMLDocumentController implements Initializable {
                 
                 int size = hospital.findAll().size();
                 PatientData patient1 = hospital.findAll().get(size - 1);
-//          System.out.println("Patient id is " + patient.getPatientID());
           
                 patient.setPatientID(patient1.getPatientID());
-//                System.out.println("new patient created");
-//                textarea_p.setText("New patient created: \n " + patient.toString());
                 textarea_p.setText("New patient created\n\n");    
                 patientInfo(patient);
-
                 patientid =  patient.getPatientID();
-//                textarea_p.appendText("Patient ID: " + patient.getPatientID() + "\n");
-//                textarea_p.appendText("Last Name: " + patient.getLastName() + "\n");
-//                textarea_p.appendText("First Name: " + patient.getFirstName() + "\n");
-//                textarea_p.appendText("Diagnosis: " + patient.getDiagnosis() + "\n");
-//                textarea_p.appendText("Admission Date: " + patient.getAdmissionDate() + "\n");
-//                textarea_p.appendText("Release Date: " + patient.getReleaseDate() + "\n");
             }else{
                 try{
                     patientid = Integer.parseInt(patientid_tx.getText());
@@ -145,15 +125,8 @@ public class FXMLDocumentController implements Initializable {
                 patient.setPatientID(patientid);
                 if(hospital.findByPatientID(patientid).getPatientID()!=0){
                     hospital.Update(patient ,patientid );
-    //                textarea_p.setText("Patient data is updated\n" + patient.toString());
                     textarea_p.setText("Patient data is updated\n\n");         
-                    patientInfo(patient);
-//                    textarea_p.appendText("Patient ID: " + patient.getPatientID() + "\n");
-//                    textarea_p.appendText("Last Name: " + patient.getLastName() + "\n");
-//                    textarea_p.appendText("First Name: " + patient.getFirstName() + "\n");
-//                    textarea_p.appendText("Diagnosis: " + patient.getDiagnosis() + "\n");
-//                    textarea_p.appendText("Admission Date: " + patient.getAdmissionDate() + "\n");
-//                    textarea_p.appendText("Release Date: " + patient.getReleaseDate() + "\n");                
+                    patientInfo(patient);             
                 }else{
                     textarea_p.setText("Patient ID " + patientid + " doesn't exist");
                 }
@@ -175,13 +148,6 @@ public class FXMLDocumentController implements Initializable {
                 PatientData p = hospital.findByPatientID(patientid);
                 textarea_p.setText("");
                 patientInfo(p);
-//                textarea_p.appendText("Patient ID: " + p.getPatientID() + "\n");
-//                textarea_p.appendText("Last Name: " + p.getLastName() + "\n");
-//                textarea_p.appendText("First Name: " + p.getFirstName() + "\n");
-//                textarea_p.appendText("Diagnosis: " + p.getDiagnosis() + "\n");
-//                textarea_p.appendText("Admission Date: " + p.getAdmissionDate() + "\n");
-//                textarea_p.appendText("Release Date: " + p.getReleaseDate() + "\n");
-//                textarea_p.setText(hospital.findByPatientID(patientid).toString());
             }else{
                 textarea_p.setText("There is no Patient information for id# " + patientid);
             }
@@ -200,13 +166,6 @@ public class FXMLDocumentController implements Initializable {
                 PatientData p = hospital.findByPatientID(patientid);
                 textarea_p.setText("");
                 patientInfo(p);
-//                textarea_p.appendText("Patient ID: " + p.getPatientID() + "\n");
-//                textarea_p.appendText("Last Name: " + p.getLastName() + "\n");
-//                textarea_p.appendText("First Name: " + p.getFirstName() + "\n");
-//                textarea_p.appendText("Diagnosis: " + p.getDiagnosis() + "\n");
-//                textarea_p.appendText("Admission Date: " + p.getAdmissionDate() + "\n");
-//                textarea_p.appendText("Release Date: " + p.getReleaseDate() + "\n");
-//                textarea_p.setText(hospital.findByPatientID(patientid).toString());
             }else{
                 textarea_p.setText("There is no Patient information for id# " + patientid);
             }
@@ -246,7 +205,6 @@ public class FXMLDocumentController implements Initializable {
             String totalCost = String.format("$%.2f", hospital.runQuery(query1, patientid) + hospital.runQuery(query2, patientid) + hospital.runQuery(query3, patientid));
             System.out.println(totalCost);
             JOptionPane popup = new JOptionPane();
-//            popup.setFont(new Font("Serif", Font.ITALIC, 20));
             UIManager.put("OptionPane.minimumSize",new Dimension(800,350));             
             UIManager.put("OptionPane.messageFont", new Font("Segoe UI", Font.PLAIN, 30));
             UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,30)));
@@ -262,15 +220,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void changeScene(ActionEvent event) throws SQLException, Exception{
         if(event.getTarget() == inpatient_btn){
-
             Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLInpatient.fxml"));
             Scene sceneInpatient = new Scene(root); 
             sceneInpatient.getStylesheets().add("/styles/hospital.css");
-//            Assignment3Desktop.window.setTitle("Gina's Hospital System");
             Assignment3Desktop.window.setScene(sceneInpatient);
             Assignment3Desktop.window.show();
-//            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLInpatient.fxml"));            
-//            rootPane.getChildren().setAll(pane);
         }
         if(event.getTarget() == medication_btn){
             Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLMedication.fxml"));
@@ -278,8 +232,6 @@ public class FXMLDocumentController implements Initializable {
             sceneMedication.getStylesheets().add("/styles/hospital.css");
             Assignment3Desktop.window.setScene(sceneMedication);
             Assignment3Desktop.window.show();            
-//            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLMedication.fxml"));
-//            rootPane.getChildren().setAll(pane);
         }
         if(event.getTarget() == surgical_btn){
             Assignment3Desktop.root = FXMLLoader.load(getClass().getResource("FXMLSurgical.fxml"));
@@ -287,9 +239,6 @@ public class FXMLDocumentController implements Initializable {
             sceneSurgical.getStylesheets().add("/styles/hospital.css");
             Assignment3Desktop.window.setScene(sceneSurgical);
             Assignment3Desktop.window.show();    
-            
-//            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLSurgical.fxml"));
-//            rootPane.getChildren().setAll(pane);
         }
     }
     

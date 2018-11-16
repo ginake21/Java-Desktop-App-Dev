@@ -7,7 +7,6 @@ package fxml;
 
 import java.net.URL;
 import com.cejv569.Business.HospitalImpl;
-import com.cejv569.Data.MedicationData;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
@@ -65,8 +64,6 @@ public class FXMLSurgicalController implements Initializable {
             scenePatient.getStylesheets().add("/styles/hospital.css");
             Assignment3Desktop.window.setScene(scenePatient);
             Assignment3Desktop.window.show();           
-//            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-//            surgicalRoot.getChildren().setAll(pane);
         }
         
         if(event.getTarget() == find_btn_s){
@@ -79,7 +76,6 @@ public class FXMLSurgicalController implements Initializable {
                 
                 SurgicalData surgicalSearched = hospital.findBySurgicalID(surgicalid);
                 if(surgicalSearched.getId() != 0){
-//                    textarea_s.setText(surgicalSearched.toString()); 
                     textarea_s.setText("");
                     surgicalInfo(surgicalSearched);
                 }else{
@@ -98,14 +94,10 @@ public class FXMLSurgicalController implements Initializable {
             
             SurgicalData surgical = hospital.findBySurgicalID(surgicalid);
             if(surgical.getPatientID() != 0){
-//                textarea_s.setText(surgical.toString());
                 textarea_s.setText("");
                 surgicalInfo(surgical);
             }else{
                 textarea_s.setText("There is no Surgical id# " + surgicalid);
-//                int size = hospital.findAll("surgical");
-//                surgicalid = hospital.findAllSurgical().get(size-1).getId();
-//                textarea_s.setText((hospital.findBySurgicalID(surgicalid)).toString());
             }
         }
         
@@ -122,13 +114,10 @@ public class FXMLSurgicalController implements Initializable {
             SurgicalData surgical = hospital.findBySurgicalID(surgicalid);
             if(surgical.getPatientID() != 0){
                 // if patient id is 0, means it's the default set, there is not medication info found 
-//                textarea_s.setText(surgical.toString());
                 textarea_s.setText("");
                 surgicalInfo(surgical);
             }else{
                 textarea_s.setText("There is no Surgical id# " + surgicalid);
-//                surgicalid = hospital.findAllSurgical().get(0).getId();
-//                textarea_s.setText((hospital.findBySurgicalID(surgicalid)).toString());
             }
         } 
         
@@ -137,7 +126,6 @@ public class FXMLSurgicalController implements Initializable {
         if(event.getTarget() == save_btn_s){
             if(surgicalid_tx.getText().equals("")){
                 try{                    
-//                    surgicalid = Integer.parseInt(surgicalid_tx.getText());
                     dateofsurgery = Timestamp.valueOf(dateofsurgery_tx.getText());
                     surgery = surgery_tx.getText();
                     roomfee = Double.parseDouble(roomfee_tx.getText());
@@ -154,7 +142,6 @@ public class FXMLSurgicalController implements Initializable {
                     int size = hospital.findAllSurgical().size();
                     textarea_s.setText("New Surgical created\n\n");
                     SurgicalData s = hospital.findAllSurgical().get(size-1);
-//                    textarea_s.appendText(hospital.findAllSurgical().get(size-1).toString());
                     surgicalInfo(s);
                     surgicalid = s.getId();
 
@@ -180,10 +167,9 @@ public class FXMLSurgicalController implements Initializable {
                 try{
                     result = hospital.Update(surgical, surgicalid);
                     if(result != 1){
-                        textarea_s.setText("Update failed - surgical id might not be valid");
+                        textarea_s.setText("Update failed - surgical id is not valid");
                     } else{
                         surgical.setId(surgicalid);
-//                        textarea_s.setText("Surgical information updated. \n" + surgical.toString());
                         textarea_s.setText("Surgical information updated. \n\n");
                         surgicalInfo(surgical);
                     }
@@ -245,8 +231,6 @@ public class FXMLSurgicalController implements Initializable {
         
         for(SurgicalData s : surgicalData){
 //SurgicalData{id=2, dateOfSurgery=2014-02-19 07:00:00.0, surgery=Kidney Transplant, roomFee=2500.12, surgeonFee=4200.0, supplies=934.23, patientID=2}
-            
-//            textarea_s.appendText(s.toString() +"\n");
             textarea_s.appendText("\nSurgical ID: " + s.getId()+ "\n");
             textarea_s.appendText("Date of surgery: " + s.getDateOfSurgery() + "__");
             textarea_s.appendText("Surgery: " + s.getSurgery() +"__");

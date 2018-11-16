@@ -65,8 +65,6 @@ public class FXMLMedicationController implements Initializable {
             scenePatient.getStylesheets().add("/styles/hospital.css");
             Assignment3Desktop.window.setScene(scenePatient);
             Assignment3Desktop.window.show();              
-//            AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-//            medicationRoot.getChildren().setAll(pane);
         }
         
         if(event.getTarget() == find_btn_m){
@@ -79,7 +77,6 @@ public class FXMLMedicationController implements Initializable {
                 
                 MedicationData medicationSearched = hospital.findByMedicationID(medicationid);
                 if(medicationSearched.getId() != 0){
-//                    textarea_m.setText(medicationSearched.toString()); 
                     textarea_m.setText("");
                     medicationInfo(medicationSearched);
                 }else{
@@ -98,7 +95,6 @@ public class FXMLMedicationController implements Initializable {
             
             MedicationData medication = hospital.findByMedicationID(medicationid);
             if(medication.getPatientID() != 0){
-//                textarea_m.setText(medication.toString());
                 textarea_m.setText("");
                 medicationInfo(medication);
             }else{
@@ -120,7 +116,6 @@ public class FXMLMedicationController implements Initializable {
             MedicationData medication = hospital.findByMedicationID(medicationid);
             if(medication.getPatientID() != 0){
                 // if patient id is 0, means it's the default set, there is not medication info found 
-//                textarea_m.setText(medication.toString());
                 textarea_m.setText("");
                 medicationInfo(medication);
             }else{
@@ -132,7 +127,6 @@ public class FXMLMedicationController implements Initializable {
         if(event.getTarget() == save_btn_m){
             if(medicationid_tx.getText().equals("")){
                 try{
-//                    medicationid = Integer.parseInt(medicationid_tx.getText());
                     dateofmed = Timestamp.valueOf(dateofmed_tx.getText());
                     med = med_tx.getText();
                     unitcost = Double.parseDouble(unitcost_tx.getText());
@@ -147,7 +141,6 @@ public class FXMLMedicationController implements Initializable {
                     int size = hospital.findAllMedication().size();
                     textarea_m.setText("New Medication created\n\n");
                     MedicationData m = hospital.findAllMedication().get(size-1);
-//                    textarea_m.appendText(hospital.findAllMedication().get(size-1).toString());
                     medicationInfo(m);
                     medicationid = m.getId();
 
@@ -171,10 +164,9 @@ public class FXMLMedicationController implements Initializable {
                 try{
                     result = hospital.Update(medication, medicationid);
                     if(result != 1){
-                        textarea_m.setText("Update failed - medication id might not be valid");
+                        textarea_m.setText("Update failed - medication id is not valid");
                     } else{
                         medication.setId(medicationid);
-//                        textarea_m.setText("Medication information updated. \n" + medication.toString());
                         textarea_m.setText("Medication information updated\n\n");
                         medicationInfo(medication);
                     }
@@ -233,8 +225,6 @@ public class FXMLMedicationController implements Initializable {
         }        
         
         for(MedicationData m : medicationData){
-//MedicationData{id=2, dateOfMed=2014-02-19 07:00:00.0, med=M and M, unitCost=1.1, units=15.0, patientID=2}
-//            textarea_m.appendText(m.toString() +"\n");
             textarea_m.appendText("\nMedication ID: " + m.getId() + "\n");
             textarea_m.appendText("Date of med: " + m.getDateOfMed() + "__");
             textarea_m.appendText("Med: " + m.getMed() + "__");
