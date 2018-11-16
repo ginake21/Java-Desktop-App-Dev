@@ -89,7 +89,7 @@ public class FXMLInpatientController implements Initializable {
                     inpatientInfo(inpatientSearched);
                  
                 }else{
-                    textarea_i.setText("Inpatient id# "+ inpatientSearched.getId() + "doesn't exist");
+                    textarea_i.setText("Inpatient id# "+ inpatientSearched.getId() + " doesn't exist");
                 }
             }
         }
@@ -125,7 +125,7 @@ public class FXMLInpatientController implements Initializable {
             int size = hospital.findAll("inpatient");
             int lastid = hospital.findAllInpatient().get(size-1).getId();
             
-            if(inpatientid == lastid || inpatientid == 0){
+            if(inpatientid >= lastid || inpatientid == 0){
                 inpatientid = hospital.findAllInpatient().get(0).getId();
             }else if(inpatientid>=1){
                 inpatientid = inpatientid +1;
@@ -165,10 +165,11 @@ public class FXMLInpatientController implements Initializable {
                 try{
                     hospital.createInpatient(new InpatientData(dateofstay, roomnumber, dailyrate, supplies, services, patientid));
                     int size = hospital.findAllInpatient().size();
-                    textarea_i.setText("New Inpatient created\n");
+                    textarea_i.setText("New Inpatient created\n\n");
                     InpatientData inpatient = hospital.findAllInpatient().get(size-1);
 //                    textarea_i.appendText(hospital.findAllInpatient().get(size-1).toString());
                     inpatientInfo(inpatient);
+                    inpatientid = inpatient.getId();
 //                    textarea_i.appendText("Inpatient ID: " + inpatient.getId()+"\n");
 //                    textarea_i.appendText("Date of stay: " + inpatient.getDateOfStay() + "\n");
 //                    textarea_i.appendText("Room number: " + inpatient.getRoomNumber()+"\n");
@@ -202,7 +203,7 @@ public class FXMLInpatientController implements Initializable {
                     } else{
                         inpatient.setId(inpatientid);
 //                        textarea_i.setText("Inpatient information updated. \n" + inpatient.toString());
-                        textarea_i.setText("Inpatient information updated. \n");
+                        textarea_i.setText("Inpatient information updated. \n\n");
                         inpatientInfo(inpatient);
 //                        textarea_i.appendText("Inpatient ID: " + inpatient.getId()+"\n");
 //                        textarea_i.appendText("Date of stay: " + inpatient.getDateOfStay() + "\n");
@@ -260,7 +261,7 @@ public class FXMLInpatientController implements Initializable {
         try{
             inpatientData = hospital.findByPatientID_I(patientid);
             if(patientid != 0){
-                textarea_i.setText("There are " + hospital.findByPatientID_I(patientid).size() + " inpatient data for patient id#" + patientid +"\n");
+                textarea_i.setText("There are " + hospital.findByPatientID_I(patientid).size() + " inpatient data for patient id# " + patientid +"\n");
             }
 
         }catch(SQLException e){

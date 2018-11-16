@@ -734,8 +734,7 @@ public class HospitalImpl implements Hospital {
 //            System.out.println("Room fee: " + s.getRoomFee());    
 //            System.out.println("Surgeon Fee: " + s.getSurgeonFee());           
 //            System.out.println("Supplies: " + s.getSupplies());
-//            System.out.println("Patient ID: " + s.getPatientID());    
-//            System.out.println();   
+//            System.out.println("Patient ID: " + s.getPatientID());                
 //        }
 
     }

@@ -79,7 +79,9 @@ public class FXMLMedicationController implements Initializable {
                 
                 MedicationData medicationSearched = hospital.findByMedicationID(medicationid);
                 if(medicationSearched.getId() != 0){
-                    textarea_m.setText(medicationSearched.toString()); 
+//                    textarea_m.setText(medicationSearched.toString()); 
+                    textarea_m.setText("");
+                    medicationInfo(medicationSearched);
                 }else{
                     textarea_m.setText("There is no Medication id# " + medicationid);
                 }
@@ -89,27 +91,27 @@ public class FXMLMedicationController implements Initializable {
         if(event.getTarget() == prev_btn_m){
             if(medicationid>1){
                 medicationid = medicationid -1;
-            }else if(medicationid== 1){
+            }else if(medicationid== 1|| medicationid == 0){
                 int size = hospital.findAll("medication");
                 medicationid = hospital.findAllMedication().get(size-1).getId();
             }
             
             MedicationData medication = hospital.findByMedicationID(medicationid);
             if(medication.getPatientID() != 0){
-                textarea_m.setText(medication.toString());
+//                textarea_m.setText(medication.toString());
+                textarea_m.setText("");
+                medicationInfo(medication);
             }else{
-//                textarea_m.setText("There is no Medication id# " + medicationid);
-                int size = hospital.findAll("medication");
-                medicationid = hospital.findAllMedication().get(size-1).getId();
-                textarea_m.setText((hospital.findByMedicationID(medicationid)).toString());
+                textarea_m.setText("There is no Medication id# " + medicationid);
             }
         }
                 
         if(event.getTarget() == next_btn_m){
             int size = hospital.findAll("medication");
-            int lastid = hospital.findAllInpatient().get(size-1).getId();
+            int lastid = hospital.findAllMedication().get(size-1).getId();
+            System.out.print("Last id: " + lastid);
             
-            if(medicationid == lastid){
+            if(medicationid >= lastid ||medicationid == 0 ){
                 // if it's already the last item, then we go to get the first item
                 medicationid = hospital.findAllInpatient().get(0).getId();
             }else if(medicationid>=1){
@@ -118,11 +120,11 @@ public class FXMLMedicationController implements Initializable {
             MedicationData medication = hospital.findByMedicationID(medicationid);
             if(medication.getPatientID() != 0){
                 // if patient id is 0, means it's the default set, there is not medication info found 
-                textarea_m.setText(medication.toString());
+//                textarea_m.setText(medication.toString());
+                textarea_m.setText("");
+                medicationInfo(medication);
             }else{
-//                textarea_m.setText("There is no Medication id# " + medicationid);
-                medicationid = hospital.findAllInpatient().get(0).getId();
-                textarea_m.setText((hospital.findByMedicationID(medicationid)).toString());
+                textarea_m.setText("There is no Medication id# " + medicationid);
             }
         }  
         
@@ -143,8 +145,11 @@ public class FXMLMedicationController implements Initializable {
                 try{
                     hospital.createMedication(new MedicationData(dateofmed, med,  unitcost, units, patientid));
                     int size = hospital.findAllMedication().size();
-                    textarea_m.setText("New Medication created\n");
-                    textarea_m.appendText(hospital.findAllMedication().get(size-1).toString());
+                    textarea_m.setText("New Medication created\n\n");
+                    MedicationData m = hospital.findAllMedication().get(size-1);
+//                    textarea_m.appendText(hospital.findAllMedication().get(size-1).toString());
+                    medicationInfo(m);
+                    medicationid = m.getId();
 
                 }catch(SQLIntegrityConstraintViolationException e){
                     textarea_m.setText("The Patient id# " + patientid + " doesn't exist");
@@ -169,7 +174,9 @@ public class FXMLMedicationController implements Initializable {
                         textarea_m.setText("Update failed - medication id might not be valid");
                     } else{
                         medication.setId(medicationid);
-                        textarea_m.setText("Medication information updated. \n" + medication.toString());
+//                        textarea_m.setText("Medication information updated. \n" + medication.toString());
+                        textarea_m.setText("Medication information updated\n\n");
+                        medicationInfo(medication);
                     }
                 }catch(SQLIntegrityConstraintViolationException e){
                     textarea_m.setText("Patient id# " + patientid + " does not exist");
@@ -203,13 +210,22 @@ public class FXMLMedicationController implements Initializable {
         }
     }
     
+    public void medicationInfo(MedicationData m){
+        textarea_m.appendText("Medication ID: " + m.getId() + "\n");
+        textarea_m.appendText("Date of med: " + m.getDateOfMed() + "\n");
+        textarea_m.appendText("Med: " + m.getMed() + "\n");
+        textarea_m.appendText("Unit cost: $" + m.getUnitCost() + "\n");
+        textarea_m.appendText("Units: " + m.getUnits() + "\n");
+        textarea_m.appendText("Patient ID: " + m.getPatientID());
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ArrayList<MedicationData> medicationData = null;
         try{
             medicationData = hospital.findByPatientID_M(patientid);
             if(patientid != 0){
-                textarea_m.setText("There are " + hospital.findByPatientID_M(patientid).size() + " medication data\n");
+                textarea_m.setText("There are " + hospital.findByPatientID_M(patientid).size() + " medication data for patient id# " +patientid + "\n");
             }
             
         }catch(SQLException e){
@@ -217,7 +233,14 @@ public class FXMLMedicationController implements Initializable {
         }        
         
         for(MedicationData m : medicationData){
-            textarea_m.appendText(m.toString() +"\n");
+//MedicationData{id=2, dateOfMed=2014-02-19 07:00:00.0, med=M and M, unitCost=1.1, units=15.0, patientID=2}
+//            textarea_m.appendText(m.toString() +"\n");
+            textarea_m.appendText("\nMedication ID: " + m.getId() + "\n");
+            textarea_m.appendText("Date of med: " + m.getDateOfMed() + "__");
+            textarea_m.appendText("Med: " + m.getMed() + "__");
+            textarea_m.appendText("Unit cost: $S" + m.getUnitCost() + "__");
+            textarea_m.appendText("Units: " + m.getUnits() + "__");
+            textarea_m.appendText("Patient ID: " + m.getPatientID()+"\n");
         }
     }    
     

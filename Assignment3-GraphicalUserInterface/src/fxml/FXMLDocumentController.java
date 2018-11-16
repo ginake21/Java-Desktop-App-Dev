@@ -120,8 +120,10 @@ public class FXMLDocumentController implements Initializable {
                 patient.setPatientID(patient1.getPatientID());
 //                System.out.println("new patient created");
 //                textarea_p.setText("New patient created: \n " + patient.toString());
-                textarea_p.setText("New patient created: \n");    
+                textarea_p.setText("New patient created\n\n");    
                 patientInfo(patient);
+
+                patientid =  patient.getPatientID();
 //                textarea_p.appendText("Patient ID: " + patient.getPatientID() + "\n");
 //                textarea_p.appendText("Last Name: " + patient.getLastName() + "\n");
 //                textarea_p.appendText("First Name: " + patient.getFirstName() + "\n");
@@ -144,7 +146,7 @@ public class FXMLDocumentController implements Initializable {
                 if(hospital.findByPatientID(patientid).getPatientID()!=0){
                     hospital.Update(patient ,patientid );
     //                textarea_p.setText("Patient data is updated\n" + patient.toString());
-                    textarea_p.setText("Patient data is updated\n");         
+                    textarea_p.setText("Patient data is updated\n\n");         
                     patientInfo(patient);
 //                    textarea_p.appendText("Patient ID: " + patient.getPatientID() + "\n");
 //                    textarea_p.appendText("Last Name: " + patient.getLastName() + "\n");
