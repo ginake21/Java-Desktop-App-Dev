@@ -30,6 +30,8 @@ import javax.swing.UIManager;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.plaf.FontUIResource;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  *
@@ -204,17 +206,18 @@ public class FXMLDocumentController implements Initializable {
 
             String totalCost = String.format("$%.2f", hospital.runQuery(query1, patientid) + hospital.runQuery(query2, patientid) + hospital.runQuery(query3, patientid));
             System.out.println(totalCost);
-            JOptionPane popup = new JOptionPane();
-            UIManager.put("OptionPane.minimumSize",new Dimension(800,350));             
-            UIManager.put("OptionPane.messageFont", new Font("Segoe UI", Font.PLAIN, 30));
-            UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,30)));
-            popup.showMessageDialog(null, "The total cost of patient ID#" + patientid + " is : " + totalCost, " Total Cost", 1);
-
-  
-        }
-        
-        
-
+//            JOptionPane popup = new JOptionPane();
+//            UIManager.put("OptionPane.minimumSize",new Dimension(800,350));             
+//            UIManager.put("OptionPane.messageFont", new Font("Segoe UI", Font.PLAIN, 30));
+//            UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL",Font.PLAIN,30)));
+//            popup.showMessageDialog(null, "The total cost of patient ID#" + patientid + " is : " + totalCost, " Total Cost", 1);
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Report");
+            alert.setHeaderText(null);
+            String s = ("The total cost of patient ID# " + patientid + " is: " + totalCost);
+            alert.setContentText(s);
+            alert.showAndWait();
+        }    
     }
     
     @FXML

@@ -87,7 +87,7 @@ public class FXMLSurgicalController implements Initializable {
         if(event.getTarget() == prev_btn_s){
             if(surgicalid>1){
                 surgicalid = surgicalid -1;
-            }else if(surgicalid == 1){
+            }else if(surgicalid == 1 || surgicalid == 0){
                 int size = hospital.findAll("surgical");
                 surgicalid = hospital.findAllSurgical().get(size-1).getId();
             }
