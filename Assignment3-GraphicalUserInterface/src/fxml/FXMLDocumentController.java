@@ -8,10 +8,8 @@ package fxml;
 
 import com.cejv569.Data.PatientData;
 import com.cejv569.Business.HospitalImpl;
-import fxml.Assignment3Desktop;
 import static fxml.Assignment3Desktop.root;
 import java.sql.*;
-import java.util.*;
 
 import java.net.URL;
 import java.sql.Timestamp;
@@ -25,11 +23,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import java.awt.Dimension;
-import java.awt.Font;
-import javax.swing.plaf.FontUIResource;
+//import javax.swing.JOptionPane;
+//import javax.swing.UIManager;
+//import java.awt.Dimension;
+//import java.awt.Font;
+//import javax.swing.plaf.FontUIResource;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -215,7 +213,12 @@ public class FXMLDocumentController implements Initializable {
             alert.setTitle("Report");
             alert.setHeaderText(null);
             String s = ("The total cost of patient ID# " + patientid + " is: " + totalCost);
-            alert.setContentText(s);
+            String s1 = ("Please enter a valid patient ID");
+            if((hospital.findByPatientID(patientid)).getPatientID() == 0){
+                alert.setContentText(s1);
+            } else{
+                alert.setContentText(s);
+            }
             alert.showAndWait();
         }    
     }
